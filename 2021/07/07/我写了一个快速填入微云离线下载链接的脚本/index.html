@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jortana.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="事情是这样的，最近发现了一个宝藏网站 yyets.dmesg.app，解决了我找高清电视剧资源难的问题，但是又出现了新的问题，网站里面一些高清的资源是电驴资源，我试了很多软件，发现只有迅雷这个吸血鬼离线下的动，可是迅雷的定价并不便宜，于是我就四处寻找替代品，最后发现微云定价便宜而且离线下载也能下的动很多资源（但是确实还是有一些下不了），不过也可以算是差强人意。使用下来发现，微云有一个非常不方便的点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我写了一个快速填入微云离线下载链接的脚本">
+<meta property="og:url" content="https://jortana.github.io/2021/07/07/%E6%88%91%E5%86%99%E4%BA%86%E4%B8%80%E4%B8%AA%E5%BF%AB%E9%80%9F%E5%A1%AB%E5%85%A5%E5%BE%AE%E4%BA%91%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5%E7%9A%84%E8%84%9A%E6%9C%AC/index.html">
+<meta property="og:site_name" content="一直是学生">
+<meta property="og:description" content="事情是这样的，最近发现了一个宝藏网站 yyets.dmesg.app，解决了我找高清电视剧资源难的问题，但是又出现了新的问题，网站里面一些高清的资源是电驴资源，我试了很多软件，发现只有迅雷这个吸血鬼离线下的动，可是迅雷的定价并不便宜，于是我就四处寻找替代品，最后发现微云定价便宜而且离线下载也能下的动很多资源（但是确实还是有一些下不了），不过也可以算是差强人意。使用下来发现，微云有一个非常不方便的点">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jortana.github.io/2021/07/07/%E6%88%91%E5%86%99%E4%BA%86%E4%B8%80%E4%B8%AA%E5%BF%AB%E9%80%9F%E5%A1%AB%E5%85%A5%E5%BE%AE%E4%BA%91%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5%E7%9A%84%E8%84%9A%E6%9C%AC/%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E6%8C%89%E9%92%AE.png">
+<meta property="og:image" content="https://jortana.github.io/2021/07/07/%E6%88%91%E5%86%99%E4%BA%86%E4%B8%80%E4%B8%AA%E5%BF%AB%E9%80%9F%E5%A1%AB%E5%85%A5%E5%BE%AE%E4%BA%91%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5%E7%9A%84%E8%84%9A%E6%9C%AC/%E5%8A%9F%E8%83%BD%E6%BC%94%E7%A4%BA.gif">
+<meta property="og:image" content="https://jortana.github.io/2021/07/07/%E6%88%91%E5%86%99%E4%BA%86%E4%B8%80%E4%B8%AA%E5%BF%AB%E9%80%9F%E5%A1%AB%E5%85%A5%E5%BE%AE%E4%BA%91%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5%E7%9A%84%E8%84%9A%E6%9C%AC/%E9%85%8D%E5%90%88%E6%BC%94%E7%A4%BA.gif">
+<meta property="article:published_time" content="2021-07-08T01:26:42.000Z">
+<meta property="article:modified_time" content="2021-07-08T02:23:52.982Z">
+<meta property="article:author" content="Jortana">
+<meta property="article:tag" content="实用工具">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="Tempermonkey">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jortana.github.io/2021/07/07/%E6%88%91%E5%86%99%E4%BA%86%E4%B8%80%E4%B8%AA%E5%BF%AB%E9%80%9F%E5%A1%AB%E5%85%A5%E5%BE%AE%E4%BA%91%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5%E7%9A%84%E8%84%9A%E6%9C%AC/%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E6%8C%89%E9%92%AE.png">
+
+<link rel="canonical" href="https://jortana.github.io/2021/07/07/%E6%88%91%E5%86%99%E4%BA%86%E4%B8%80%E4%B8%AA%E5%BF%AB%E9%80%9F%E5%A1%AB%E5%85%A5%E5%BE%AE%E4%BA%91%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5%E7%9A%84%E8%84%9A%E6%9C%AC/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>我写了一个快速填入微云离线下载链接的脚本 | 一直是学生</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一直是学生</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jortana.github.io/2021/07/07/%E6%88%91%E5%86%99%E4%BA%86%E4%B8%80%E4%B8%AA%E5%BF%AB%E9%80%9F%E5%A1%AB%E5%85%A5%E5%BE%AE%E4%BA%91%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5%E7%9A%84%E8%84%9A%E6%9C%AC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jortana">
+      <meta itemprop="description" content="不知道写了些啥">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一直是学生">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          我写了一个快速填入微云离线下载链接的脚本
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-07-07 17:26:42 / 修改时间：18:23:52" itemprop="dateCreated datePublished" datetime="2021-07-07T17:26:42-08:00">2021-07-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/07/07/%E6%88%91%E5%86%99%E4%BA%86%E4%B8%80%E4%B8%AA%E5%BF%AB%E9%80%9F%E5%A1%AB%E5%85%A5%E5%BE%AE%E4%BA%91%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5%E7%9A%84%E8%84%9A%E6%9C%AC/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/07/07/%E6%88%91%E5%86%99%E4%BA%86%E4%B8%80%E4%B8%AA%E5%BF%AB%E9%80%9F%E5%A1%AB%E5%85%A5%E5%BE%AE%E4%BA%91%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5%E7%9A%84%E8%84%9A%E6%9C%AC/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>事情是这样的，最近发现了一个宝藏网站 <a href="yyets.dmesg.app">yyets.dmesg.app</a>，解决了我找高清电视剧资源难的问题，但是又出现了新的问题，网站里面一些高清的资源是电驴资源，我试了很多软件，发现只有迅雷这个吸血鬼离线下的动，可是迅雷的定价并不便宜，于是我就四处寻找替代品，最后发现微云定价便宜而且离线下载也能下的动很多资源（但是确实还是有一些下不了），不过也可以算是差强人意。使用下来发现，微云有一个非常不方便的点，那就是不支持批量添加链接，手动添加一个链接需要经过五步：点击新建 -&gt; 点击离线下载 -&gt; 点击链接下载 -&gt; 填入链接 -&gt; 点击下一步，总共点击四次，CTRL + V 一次，添加一个还好，电视剧懂不懂十几二十集，这谁受得了啊，于是我开始着手解决这个问题。</p>
+<span id="more"></span>
+
+<h2 id="最初的想法：自动批量添加"><a href="#最初的想法：自动批量添加" class="headerlink" title="最初的想法：自动批量添加"></a>最初的想法：自动批量添加</h2><p>本着出现问题就解决<del>提出问题的人</del>问题的想法，我在 GitHub 上搜了一圈有关于微云的仓库，发现大多数都是模仿网盘页面的，还有一个7、8年前的仓库，用来转真实链接的，遂放弃。又在网上找有没有人写类似的 API，还真给我找到了，而且还是官方的：<a target="_blank" rel="noopener" href="https://open.weiyun.com/">腾讯微云开放平台TWOA</a>，进入这个页面我不禁感慨有些简陋，再进一步看看他的功能，好家伙，我要的他全都有，真不愧是官方出品。当我满心欢喜地准备用的时候发现，发送请求中需要带上 <code>client_id</code>、<code>client_secret</code> 等需要申请的参数，我找了大半天，也没发现申请的入口，遂再次放弃。</p>
+<p>后来又想到了用模拟点击的方式自动点击上传，于是用 puppeteer 写了个脚本，怎么用怎么不舒服，还有一堆 bug，遂再再次放弃。</p>
+<h2 id="最终实现：浏览器脚本"><a href="#最终实现：浏览器脚本" class="headerlink" title="最终实现：浏览器脚本"></a>最终实现：浏览器脚本</h2><p>在多次尝试之后，我觉得完全自动化已经很难继续往下走了，于是考虑不那么自动化，反正是要进浏览器的，那不如写一段 JS ，每次要用的时候贴到 console 里，我点一下添加离线下载的按钮，他自动帮我转到添加链接的 tab，并且帮我填如剪贴板中的内容，这样看来也还不错，不过每次还是得点击 “新建” 和 “离线下载” 两个按钮，要不怎么说懒是第一生产力呢，我直接在界面上添加一个按钮，点一下相当于点两下不是更好吗？那再进一步，不要每次手动把脚本粘进来，直接做成浏览器扩展脚本不是更好吗？而 Tempermonkey 就提供了很好的支持。</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>首先在页面上添加一个 <strong>自动添加</strong> 的按钮，点击之后就相当于点击了 “新建” 和 “离线下载” 两个按钮，<strong>监听这个按钮的点击事件</strong>，等待跳出的对话框完成加载后，点击 “链接下载” 按钮，并在 textarea 中填入剪贴板中的内容。</p>
+<p>在实验的过程中，有几个比较坑的地方，在页面变化的时候是需要等待我们需要的元素加载的，本身只想用原生功能实现（其实是不知道 Tempermonkey 支持引入库），所以就用 <code>setInterval</code> 尝试解决了，拿等待对话框弹出作为例子，因为我们要点击弹出的对话框中 “链接下载” 的按钮，因此需要等待加载，具体代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 链接下载 按钮的选择器</span></span><br><span class="line"><span class="keyword">const</span> subTabSelector = <span class="string">&#x27;xxx&#x27;</span> <span class="comment">// 太长就不写了</span></span><br><span class="line"><span class="comment">// 被点击后，等待跳出的对话框完成加载后，点击 链接下载 按钮，并填入剪贴板中的内容</span></span><br><span class="line"><span class="keyword">let</span> tabButton = <span class="built_in">document</span>.querySelector(subTabSelector)</span><br><span class="line"><span class="comment">// 等待对话框完成加载</span></span><br><span class="line"><span class="keyword">const</span> waitButton = <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    tabButton = <span class="built_in">document</span>.querySelector(subTabSelector)</span><br><span class="line">    <span class="keyword">if</span> (tabButton !== <span class="literal">null</span>) &#123;</span><br><span class="line">        tabButton.click()</span><br><span class="line">        <span class="comment">// 这个函数表示填入剪贴板中的内容</span></span><br><span class="line">        setURL()</span><br><span class="line">        <span class="built_in">clearInterval</span>(waitButton)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;, <span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+
+<p>完整的代码在 Github 上，<a target="_blank" rel="noopener" href="https://github.com/Jortana/weiyun-auto-add">点击直达</a>。</p>
+<h3 id="使用效果"><a href="#使用效果" class="headerlink" title="使用效果"></a>使用效果</h3><p>在完成安装之后，当你登录到微云的时候，也就是你的地址栏显示类似 <code>https://www.weiyun.com/disk*</code> 这种形式的时候，界面上会多一个 <strong>自动添加</strong> 的按钮，如下图所示：</p>
+<p><img src="/2021/07/07/%E6%88%91%E5%86%99%E4%BA%86%E4%B8%80%E4%B8%AA%E5%BF%AB%E9%80%9F%E5%A1%AB%E5%85%A5%E5%BE%AE%E4%BA%91%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5%E7%9A%84%E8%84%9A%E6%9C%AC/%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E6%8C%89%E9%92%AE.png" alt="自动添加按钮"></p>
+<p>点击 <strong>自动添加</strong> 按钮，脚本会帮你将你的 <strong>剪贴板</strong> 中的内容添加到离线下载的列表中</p>
+<p><img src="/2021/07/07/%E6%88%91%E5%86%99%E4%BA%86%E4%B8%80%E4%B8%AA%E5%BF%AB%E9%80%9F%E5%A1%AB%E5%85%A5%E5%BE%AE%E4%BA%91%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5%E7%9A%84%E8%84%9A%E6%9C%AC/%E5%8A%9F%E8%83%BD%E6%BC%94%E7%A4%BA.gif" alt="功能演示"></p>
+<p>配合一些分享链接的站点，可以实现非常快速的多个链接的添加，比如配合<a target="_blank" rel="noopener" href="https://yyets.dmesg.app/home">人人视频分享站</a></p>
+<p><img src="/2021/07/07/%E6%88%91%E5%86%99%E4%BA%86%E4%B8%80%E4%B8%AA%E5%BF%AB%E9%80%9F%E5%A1%AB%E5%85%A5%E5%BE%AE%E4%BA%91%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5%E7%9A%84%E8%84%9A%E6%9C%AC/%E9%85%8D%E5%90%88%E6%BC%94%E7%A4%BA.gif" alt="配合演示"></p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>通过 OpenUserJS 安装脚本: <strong><a target="_blank" rel="noopener" href="https://openuserjs.org/scripts/jortana/Weiyun_Auto_Add_Task_%E5%BE%AE%E4%BA%91%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%86%99%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5">点我</a></strong> </p>
+<p>然后点击页面右上角的 <code>Install</code> 进行安装</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/" rel="tag"><i class="fa fa-tag"></i> 实用工具</a>
+              <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+              <a href="/tags/Tempermonkey/" rel="tag"><i class="fa fa-tag"></i> Tempermonkey</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/07/01/you-get%E4%B8%8D%E8%87%AA%E5%8A%A8%E5%90%88%E5%B9%B6%E9%9F%B3%E9%A2%91%E5%92%8C%E8%A7%86%E9%A2%91%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" rel="prev" title="you-get不自动合并音频和视频的解决办法">
+      <i class="fa fa-chevron-left"></i> you-get不自动合并音频和视频的解决办法
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%88%9D%E7%9A%84%E6%83%B3%E6%B3%95%EF%BC%9A%E8%87%AA%E5%8A%A8%E6%89%B9%E9%87%8F%E6%B7%BB%E5%8A%A0"><span class="nav-number">1.</span> <span class="nav-text">最初的想法：自动批量添加</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E5%AE%9E%E7%8E%B0%EF%BC%9A%E6%B5%8F%E8%A7%88%E5%99%A8%E8%84%9A%E6%9C%AC"><span class="nav-number">2.</span> <span class="nav-text">最终实现：浏览器脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">2.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%95%88%E6%9E%9C"><span class="nav-number">2.2.</span> <span class="nav-text">使用效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">2.3.</span> <span class="nav-text">安装</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Jortana</p>
+  <div class="site-description" itemprop="description">不知道写了些啥</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Jortana" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Jortana" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-coffee"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jortana</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'z6OPNmrgPP1qDgPIUEAhLhRT-gzGzoHsz',
+      appKey     : 'goxbpiIwXUx5T8uxGHFxz8hg',
+      placeholder: "加入讨论...",
+      avatar     : 'mp',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
