@@ -158,6 +158,101 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jortana.github.io/2021/07/13/%E7%94%A8docker%E5%B0%81%E5%8D%B0EasyConnect%E5%B9%B6%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jortana">
+      <meta itemprop="description" content="不知道写了些啥">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一直是学生">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/13/%E7%94%A8docker%E5%B0%81%E5%8D%B0EasyConnect%E5%B9%B6%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-title-link" itemprop="url">用docker封印EasyConnect并连接远程桌面和数据库</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-07-13 23:25:44" itemprop="dateCreated datePublished" datetime="2021-07-13T23:25:44-08:00">2021-07-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-14 19:16:53" itemprop="dateModified" datetime="2021-07-14T19:16:53-08:00">2021-07-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">实用工具</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/07/13/%E7%94%A8docker%E5%B0%81%E5%8D%B0EasyConnect%E5%B9%B6%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/07/13/%E7%94%A8docker%E5%B0%81%E5%8D%B0EasyConnect%E5%B9%B6%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>我们学校要使用深信服家的 EasyConnect 才能在外面连内网，我又经常需要连学校的电脑和数据库，在使用了一段时间 EasyConnect 之后，我发现这玩意儿不仅流氓，而且难用。流氓在于不用他的时候进程关不掉，卸载还卸载不干净，也不知道他到底要获取什么数据，关于深信服的黑料网上一搜一大堆。难用在于我一开他，虽然是能连上学校内网了，但是我们学校校园网非常差劲，速度本身就不快，还经常连不上 GitHub，用了他之后，我在路由器上配置的代理也没有用，所以我心想能不能抛弃这个流氓客户端，就在不久前，我终于找到了一套解决方案。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/07/13/%E7%94%A8docker%E5%B0%81%E5%8D%B0EasyConnect%E5%B9%B6%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://jortana.github.io/2021/07/07/%E6%88%91%E5%86%99%E4%BA%86%E4%B8%80%E4%B8%AA%E5%BF%AB%E9%80%9F%E5%A1%AB%E5%85%A5%E5%BE%AE%E4%BA%91%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5%E7%9A%84%E8%84%9A%E6%9C%AC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -493,7 +588,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -506,7 +601,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
