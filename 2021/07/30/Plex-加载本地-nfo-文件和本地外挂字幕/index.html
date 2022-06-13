@@ -236,24 +236,33 @@
       
         <p>前几天在鼓捣 Plex 的时候吃了一记 <a target="_blank" rel="noopener" href="https://www.tinymediamanager.org/">tinyMediaManager</a> 的安利，虽然他现在有一些收费的选项，不过还是有曲线救国的方法，可以免除搜索上限的方法（其实就是下别人弄好的包）。tMM 的好处在于你可以清楚地看到每部电影、电视剧的各种信息，是没找到还是漏了一些或者全找到了，一目了然，但是当 Plex 导入资料库时，往往不会用你搜集好的信息和图片，可能会自己再去搜一次，搜的不一定对，浪费时间，如果出现要手工调整的情况操作起来也比 tMM 麻烦一些，如何让 Plex 自动识别本地的信息呢，需要利用到 Plex 的插件：XBMCnfoMoviesImporter 和 XBMCnfoTVImporter。</p>
 <span id="more"></span>
-
 <p>要实现上述功能只需要两大步：加载插件和配置插件。</p>
-<h2 id="1-加载插件"><a href="#1-加载插件" class="headerlink" title="1 加载插件"></a>1 加载插件</h2><h3 id="1-1-下载插件"><a href="#1-1-下载插件" class="headerlink" title="1.1 下载插件"></a>1.1 下载插件</h3><p>这里提供三个下载方式，其中包含的文件都是一样的，GitHub 链接、百度网盘和我的私有网盘。如果网盘都失效了而且 GitHub链接出现问题，可以自行去 GitHub上搜索这两个插件。</p>
+<h2 id="加载插件">1 加载插件</h2>
+<h3 id="下载插件">1.1 下载插件</h3>
+<p>这里提供三个下载方式，其中包含的文件都是一样的，GitHub 链接、百度网盘和我的私有网盘。如果网盘都失效了而且 GitHub链接出现问题，可以自行去 GitHub上搜索这两个插件。</p>
 <p>GitHub：</p>
-<p>​    XBMCnfoMoviesImporter：<a target="_blank" rel="noopener" href="https://github.com/gboudreau/XBMCnfoMoviesImporter.bundle">仓库地址</a> <a target="_blank" rel="noopener" href="https://github.com/gboudreau/XBMCnfoMoviesImporter.bundle/archive/master.zip">下载地址</a></p>
-<p>​    XBMCnfoTVImporter：<a target="_blank" rel="noopener" href="https://github.com/gboudreau/XBMCnfoTVImporter.bundle">仓库地址</a> <a target="_blank" rel="noopener" href="https://github.com/gboudreau/XBMCnfoTVImporter.bundle/archive/master.zip">下载地址</a></p>
+<p>​ XBMCnfoMoviesImporter：<a target="_blank" rel="noopener" href="https://github.com/gboudreau/XBMCnfoMoviesImporter.bundle">仓库地址</a> <a target="_blank" rel="noopener" href="https://github.com/gboudreau/XBMCnfoMoviesImporter.bundle/archive/master.zip">下载地址</a></p>
+<p>​ XBMCnfoTVImporter：<a target="_blank" rel="noopener" href="https://github.com/gboudreau/XBMCnfoTVImporter.bundle">仓库地址</a> <a target="_blank" rel="noopener" href="https://github.com/gboudreau/XBMCnfoTVImporter.bundle/archive/master.zip">下载地址</a></p>
 <p><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1-1xVafu0Pt7XZVlovIWFqg">百度网盘</a> 提取码：mict</p>
 <p><a target="_blank" rel="noopener" href="http://jortana.tech:8000/s/SzQEwcFt5sikjq7">我的网盘</a> 提取码：RsKkjXGBRW</p>
-<h3 id="1-2-安装插件"><a href="#1-2-安装插件" class="headerlink" title="1.2 安装插件"></a>1.2 安装插件</h3><p>下载完成后解压，你会得到两个文件夹，如果你是从 GitHub 上下载，注意更改一下文件夹的名字，确保这两个文件夹的名字是 <strong>XBMCnfoMoviesImporter.bundle</strong> 和 <strong>XBMCnfoTVImporter.bundle</strong>。然后将这两个文件夹放到 Plex 的插件目录下，在官网的 <a target="_blank" rel="noopener" href="https://support.plex.tv/articles/202915258-where-is-the-plex-media-server-data-directory-located/">说明文档</a> 中可以找到你的平台对应的目录。</p>
+<h3 id="安装插件">1.2 安装插件</h3>
+<p>下载完成后解压，你会得到两个文件夹，如果你是从 GitHub 上下载，注意更改一下文件夹的名字，确保这两个文件夹的名字是 <strong>XBMCnfoMoviesImporter.bundle</strong> 和 <strong>XBMCnfoTVImporter.bundle</strong>。然后将这两个文件夹放到 Plex 的插件目录下，在官网的 <a target="_blank" rel="noopener" href="https://support.plex.tv/articles/202915258-where-is-the-plex-media-server-data-directory-located/">说明文档</a> 中可以找到你的平台对应的目录。</p>
 <p>我是在 Ubuntu Server 中安装的，所以我的目录为 <code>/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Plug-ins/</code> ，注意后面多了一个 <code>/Plug-ins/</code>，官网给的目录是 Plex 的安装目录，我们要把插件复制到 <strong>插件文件夹</strong> 里去。</p>
-<p>将两个文件夹都丢进去之后，我们重启 Plex 服务，Linux 用户可以使用命令 <code>sudo service plexmediaserver restart </code>，接下来进行一下插件的配置。</p>
-<h2 id="2-配置插件"><a href="#2-配置插件" class="headerlink" title="2 配置插件"></a>2 配置插件</h2><h3 id="2-1-使-Plex-加载本地信息"><a href="#2-1-使-Plex-加载本地信息" class="headerlink" title="2.1 使 Plex 加载本地信息"></a>2.1 使 Plex 加载本地信息</h3><p>说是配置插件，实际上是配置资料库的代理。进入 Plex 的控制面板，点击设置，左边的导航条拉到最下面，选择 <strong>管理</strong> 下的 <strong>资料库</strong>，找到你需要操作的资料库点击 <strong>编辑资料库</strong>。</p>
+<p>将两个文件夹都丢进去之后，我们重启 Plex 服务，Linux 用户可以使用命令 <code>sudo service plexmediaserver restart</code>，接下来进行一下插件的配置。</p>
+<h2 id="配置插件">2 配置插件</h2>
+<h3 id="使-plex-加载本地信息">2.1 使 Plex 加载本地信息</h3>
+<p>说是配置插件，实际上是配置资料库的代理。进入 Plex 的控制面板，点击设置，左边的导航条拉到最下面，选择 <strong>管理</strong> 下的 <strong>资料库</strong>，找到你需要操作的资料库点击 <strong>编辑资料库</strong>。</p>
 <p>在编辑面板中选择 <strong>高级</strong>，并更改代理，如果是电影资料库就将代理改为 XBMCnfoMoviesImporter，如果是电视节目资料库就将代理改为 XBMCnfoTVImporter。</p>
 <p>根据网上的经验，最好关闭 Enable generating Collections from tags 这一选项（只有电影资料库有）并将 Collections 选项调整为 Disabled。</p>
-<p><img src="/2021/07/30/Plex-%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0-nfo-%E6%96%87%E4%BB%B6%E5%92%8C%E6%9C%AC%E5%9C%B0%E5%A4%96%E6%8C%82%E5%AD%97%E5%B9%95/image-20210730235320150.png" alt="更改代理"></p>
-<h3 id="使-Plex-加载本地字幕"><a href="#使-Plex-加载本地字幕" class="headerlink" title="使 Plex 加载本地字幕"></a>使 Plex 加载本地字幕</h3><p>到这一步，插件已经可以帮我们加载本地的影片信息了，但是还不能自动加载本地外挂字幕，即使字幕的命名没有问题，Plex 也不能识别，还需要对插件本身进行配置。</p>
+<figure>
+<img src="/2021/07/30/Plex-%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0-nfo-%E6%96%87%E4%BB%B6%E5%92%8C%E6%9C%AC%E5%9C%B0%E5%A4%96%E6%8C%82%E5%AD%97%E5%B9%95/image-20210730235320150.png" alt="更改代理"><figcaption aria-hidden="true">更改代理</figcaption>
+</figure>
+<h3 id="使-plex-加载本地字幕">使 Plex 加载本地字幕</h3>
+<p>到这一步，插件已经可以帮我们加载本地的影片信息了，但是还不能自动加载本地外挂字幕，即使字幕的命名没有问题，Plex 也不能识别，还需要对插件本身进行配置。</p>
 <p>从左边导航栏找到 <strong>设置</strong> 下的 <strong>代理</strong>，在右边的电影和电视节目中可以看到我们刚刚加载的插件，将插件下的 Local Media Assets <strong>勾选上</strong>。</p>
-<p><img src="/2021/07/30/Plex-%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0-nfo-%E6%96%87%E4%BB%B6%E5%92%8C%E6%9C%AC%E5%9C%B0%E5%A4%96%E6%8C%82%E5%AD%97%E5%B9%95/image-20210731000245536.png" alt="加载本地字幕"></p>
+<figure>
+<img src="/2021/07/30/Plex-%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0-nfo-%E6%96%87%E4%BB%B6%E5%92%8C%E6%9C%AC%E5%9C%B0%E5%A4%96%E6%8C%82%E5%AD%97%E5%B9%95/image-20210731000245536.png" alt="加载本地字幕"><figcaption aria-hidden="true">加载本地字幕</figcaption>
+</figure>
 <p>这时候，刷新资料库的元数据，你会发现所有的信息包括海报、缩略图、字幕等全都已经按照本地的文件加载好了。</p>
 
     </div>
@@ -279,10 +288,7 @@
     <a href="/2021/07/13/%E7%94%A8docker%E5%B0%81%E5%8D%B0EasyConnect%E5%B9%B6%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="prev" title="用docker封印EasyConnect并连接远程桌面和数据库">
       <i class="fa fa-chevron-left"></i> 用docker封印EasyConnect并连接远程桌面和数据库
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/06/13/Andrew-Ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ex1-Linear-Regression-%E7%BC%96%E7%A8%8B%E4%BD%9C%E4%B8%9A/" rel="next" title="Andrew Ng 机器学习 ex1(Linear Regression) 编程作业">
-      Andrew Ng 机器学习 ex1(Linear Regression) 编程作业 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -342,7 +348,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%8A%A0%E8%BD%BD%E6%8F%92%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">1 加载插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 下载插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 安装插件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E9%85%8D%E7%BD%AE%E6%8F%92%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">2 配置插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E4%BD%BF-Plex-%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0%E4%BF%A1%E6%81%AF"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 使 Plex 加载本地信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF-Plex-%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0%E5%AD%97%E5%B9%95"><span class="nav-number">2.2.</span> <span class="nav-text">使 Plex 加载本地字幕</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BD%E6%8F%92%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">1 加载插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E6%8F%92%E4%BB%B6"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 下载插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 安装插件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%8F%92%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">2 配置插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF-plex-%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0%E4%BF%A1%E6%81%AF"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 使 Plex 加载本地信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF-plex-%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0%E5%AD%97%E5%B9%95"><span class="nav-number">2.2.</span> <span class="nav-text">使 Plex 加载本地字幕</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -356,20 +362,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -454,6 +460,8 @@
 
 
 
+
+  
 
   
 

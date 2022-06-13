@@ -238,17 +238,26 @@
       
         <p>you-get 是一个从网络上下载音频、视频、图片等资源的命令行工具，详细的介绍可以去他的<a target="_blank" rel="noopener" href="https://you-get.org/">官网</a>，在 Windows 下安装完 you-get 之后，虽然可以正常地进行下载，但是下载完的视频和音频常常是分开的，为了解决这个问题，我们需要安装 <strong>FFmpeg</strong>。</p>
 <span id="more"></span>
-
-<h2 id="下载-FFmpeg"><a href="#下载-FFmpeg" class="headerlink" title="下载 FFmpeg"></a>下载 FFmpeg</h2><p>首先，我们进到 FFmpeg 官网的<a target="_blank" rel="noopener" href="https://www.ffmpeg.org/download.html">下载</a>页面，鼠标悬浮在 Windows 徽标上，就可以看见官方推荐的两个供我们进行下载的地址，上面一个是 <a target="_blank" rel="noopener" href="https://www.gyan.dev/ffmpeg/builds/">gyan.dev</a> 提供的镜像，下面一个是 Github 上的 Releases 页面，用上面一个链接下载可能会快一些。</p>
-<p><img src="/2021/07/01/you-get%E4%B8%8D%E8%87%AA%E5%8A%A8%E5%90%88%E5%B9%B6%E9%9F%B3%E9%A2%91%E5%92%8C%E8%A7%86%E9%A2%91%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/image-20210702143919164.png" alt="官网提供的链接"></p>
+<h2 id="下载-ffmpeg">下载 FFmpeg</h2>
+<p>首先，我们进到 FFmpeg 官网的<a target="_blank" rel="noopener" href="https://www.ffmpeg.org/download.html">下载</a>页面，鼠标悬浮在 Windows 徽标上，就可以看见官方推荐的两个供我们进行下载的地址，上面一个是 <a target="_blank" rel="noopener" href="https://www.gyan.dev/ffmpeg/builds/">gyan.dev</a> 提供的镜像，下面一个是 Github 上的 Releases 页面，用上面一个链接下载可能会快一些。</p>
+<figure>
+<img src="/2021/07/01/you-get%E4%B8%8D%E8%87%AA%E5%8A%A8%E5%90%88%E5%B9%B6%E9%9F%B3%E9%A2%91%E5%92%8C%E8%A7%86%E9%A2%91%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/image-20210702143919164.png" alt="官网提供的链接"><figcaption aria-hidden="true">官网提供的链接</figcaption>
+</figure>
 <p>在页面中的 release 栏中找到你想要下载的版本，直接点击即可下载。</p>
-<p><img src="/2021/07/01/you-get%E4%B8%8D%E8%87%AA%E5%8A%A8%E5%90%88%E5%B9%B6%E9%9F%B3%E9%A2%91%E5%92%8C%E8%A7%86%E9%A2%91%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/image-20210702144511434.png" alt="找到需要的版本"></p>
-<h2 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h2><p>下载完成后，我们需要将 FFmpeg 的可执行文件所在的文件夹添加到环境变量中，这样 you-get 才能正常使用。</p>
-<p>将下载下来的压缩包解压到任意位置，并复制 <strong>bin</strong> 文件夹的路径，比如我解压 FFmpeg 的路径为  <code>A:\env\ffmpeg</code>，那么 bin 文件夹的位置就是 <code>A:\env\ffmpeg\bin</code>，看图理解还是很清晰明了的。</p>
-<p><img src="/2021/07/01/you-get%E4%B8%8D%E8%87%AA%E5%8A%A8%E5%90%88%E5%B9%B6%E9%9F%B3%E9%A2%91%E5%92%8C%E8%A7%86%E9%A2%91%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/image-20210702145143639.png" alt="解压 FFmpeg 并复制路径"></p>
+<figure>
+<img src="/2021/07/01/you-get%E4%B8%8D%E8%87%AA%E5%8A%A8%E5%90%88%E5%B9%B6%E9%9F%B3%E9%A2%91%E5%92%8C%E8%A7%86%E9%A2%91%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/image-20210702144511434.png" alt="找到需要的版本"><figcaption aria-hidden="true">找到需要的版本</figcaption>
+</figure>
+<h2 id="配置环境变量">配置环境变量</h2>
+<p>下载完成后，我们需要将 FFmpeg 的可执行文件所在的文件夹添加到环境变量中，这样 you-get 才能正常使用。</p>
+<p>将下载下来的压缩包解压到任意位置，并复制 <strong>bin</strong> 文件夹的路径，比如我解压 FFmpeg 的路径为 <code>A:\env\ffmpeg</code>，那么 bin 文件夹的位置就是 <code>A:\env\ffmpeg\bin</code>，看图理解还是很清晰明了的。</p>
+<figure>
+<img src="/2021/07/01/you-get%E4%B8%8D%E8%87%AA%E5%8A%A8%E5%90%88%E5%B9%B6%E9%9F%B3%E9%A2%91%E5%92%8C%E8%A7%86%E9%A2%91%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/image-20210702145143639.png" alt="解压 FFmpeg 并复制路径"><figcaption aria-hidden="true">解压 FFmpeg 并复制路径</figcaption>
+</figure>
 <p>接着进入 Windows 的设置，依此点击 <strong>系统 -&gt; 关于</strong>，在右边栏找到 <strong>高级系统设置</strong>，在弹出的选项卡中点击 <strong>高级</strong>，然后点击 <strong>环境变量</strong>，在 <strong>Path</strong> 中加上刚刚复制的那一条。</p>
 <p>重新开一个命令行，输入 <code>ffmpeg -version</code>，如果输出了一堆类似下图的信息，那么说明已经设置成功了。</p>
-<p><img src="/2021/07/01/you-get%E4%B8%8D%E8%87%AA%E5%8A%A8%E5%90%88%E5%B9%B6%E9%9F%B3%E9%A2%91%E5%92%8C%E8%A7%86%E9%A2%91%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/image-20210702150902736.png" alt="验证是否安装成功"></p>
+<figure>
+<img src="/2021/07/01/you-get%E4%B8%8D%E8%87%AA%E5%8A%A8%E5%90%88%E5%B9%B6%E9%9F%B3%E9%A2%91%E5%92%8C%E8%A7%86%E9%A2%91%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/image-20210702150902736.png" alt="验证是否安装成功"><figcaption aria-hidden="true">验证是否安装成功</figcaption>
+</figure>
 <p>这时候，我们再用 you-get 下载视频时，在下载完成后会有一个类似 <code>Merging video parts... Merged into xxx</code> 的提示，这时候再看下载下来的文件就已经合并成一个了。</p>
 
     </div>
@@ -337,7 +346,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD-FFmpeg"><span class="nav-number">1.</span> <span class="nav-text">下载 FFmpeg</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">2.</span> <span class="nav-text">配置环境变量</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD-ffmpeg"><span class="nav-number">1.</span> <span class="nav-text">下载 FFmpeg</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">2.</span> <span class="nav-text">配置环境变量</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -351,20 +360,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -449,6 +458,8 @@
 
 
 
+
+  
 
   
 
