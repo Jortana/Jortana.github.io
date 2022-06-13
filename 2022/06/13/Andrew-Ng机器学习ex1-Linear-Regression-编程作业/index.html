@@ -20,30 +20,38 @@
     var CONFIG = {"hostname":"jortana.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="不知道写了些啥">
-<meta property="og:type" content="website">
-<meta property="og:title" content="一直是学生">
-<meta property="og:url" content="https://jortana.github.io/index.html">
+  <meta name="description" content="在上周我开始了机器学习的学习，现在进行到第二周，开始涉及到编程作业，我自己在做的过程中也遇到了一些困难，有一些疑惑，所以想着记录一下，一来是加深自己的印象，二来可能帮助到其他的人。 学习资料和代码我均会上传到我的 Github，文章里我会尽量详述，如果需要查看整段代码请到 [这里](https:&#x2F;&#x2F;github.com&#x2F;Jortana&#x2F;coursera-machine-learning[GitHu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Andrew Ng 机器学习 ex1(Linear Regression) 编程作业">
+<meta property="og:url" content="https://jortana.github.io/2022/06/13/Andrew-Ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ex1-Linear-Regression-%E7%BC%96%E7%A8%8B%E4%BD%9C%E4%B8%9A/index.html">
 <meta property="og:site_name" content="一直是学生">
-<meta property="og:description" content="不知道写了些啥">
+<meta property="og:description" content="在上周我开始了机器学习的学习，现在进行到第二周，开始涉及到编程作业，我自己在做的过程中也遇到了一些困难，有一些疑惑，所以想着记录一下，一来是加深自己的印象，二来可能帮助到其他的人。 学习资料和代码我均会上传到我的 Github，文章里我会尽量详述，如果需要查看整段代码请到 [这里](https:&#x2F;&#x2F;github.com&#x2F;Jortana&#x2F;coursera-machine-learning[GitHu">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-12T16:08:08.000Z">
+<meta property="article:modified_time" content="2022-06-13T06:08:58.555Z">
 <meta property="article:author" content="Jortana">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="Coursera">
+<meta property="article:tag" content="编程作业">
+<meta property="article:tag" content="Octave">
+<meta property="article:tag" content="Linear Regression">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://jortana.github.io/">
+<link rel="canonical" href="https://jortana.github.io/2022/06/13/Andrew-Ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ex1-Linear-Regression-%E7%BC%96%E7%A8%8B%E4%BD%9C%E4%B8%9A/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>一直是学生</title>
+  <title>Andrew Ng 机器学习 ex1(Linear Regression) 编程作业 | 一直是学生</title>
   
 
 
@@ -152,9 +160,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -170,10 +179,9 @@
       <meta itemprop="name" content="一直是学生">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/13/Andrew-Ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ex1-Linear-Regression-%E7%BC%96%E7%A8%8B%E4%BD%9C%E4%B8%9A/" class="post-title-link" itemprop="url">Andrew Ng 机器学习 ex1(Linear Regression) 编程作业</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Andrew Ng 机器学习 ex1(Linear Regression) 编程作业
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -220,7 +228,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>在上周我开始了机器学习的学习，现在进行到第二周，开始涉及到编程作业，我自己在做的过程中也遇到了一些困难，有一些疑惑，所以想着记录一下，一来是加深自己的印象，二来可能帮助到其他的人。</p>
+        <p>在上周我开始了机器学习的学习，现在进行到第二周，开始涉及到编程作业，我自己在做的过程中也遇到了一些困难，有一些疑惑，所以想着记录一下，一来是加深自己的印象，二来可能帮助到其他的人。</p>
 <p>学习资料和代码我均会上传到我的 Github，文章里我会尽量详述，如果需要查看整段代码请到 [这里](<a target="_blank" rel="noopener" href="https://github.com/Jortana/coursera-machine-learning[GitHub">https://github.com/Jortana/coursera-machine-learning[GitHub</a> - Jortana/coursera-machine-learning: Study notes and code for Professor Ng&#39;s machine learning course on coursera.](<a target="_blank" rel="noopener" href="https://github.com/Jortana/coursera-machine-learning">https://github.com/Jortana/coursera-machine-learning</a>)) 自取。</p>
 <p>不得不说，这门课程不仅老师讲得好，而且作业也非常清晰、好上手，有引导，有提示，难度梯度设计也很合理，我属于数学不是很好的，而且基本没学过线性代数，在听过讲解，并且看过课程提供的文字总结之后，也完全可以渐渐掌握方法，并顺利完成作业。</p>
 <p>作业是写在一个 pdf 文件中的，文件名是 <a target="_blank" rel="noopener" href="https://github.com/Jortana/coursera-machine-learning/blob/main/ex1-octave/ex1.pdf">ex1.pdf</a>，点击可以查看。第一次作业除了热身之外，主要包含两个部分，分别是必做题和选做题。必做题是单个变量的线性回归（Linear regression with one variable），选做题是多个变量的线性回归（Linear regression with multiple variables）。这里还是不得不夸一下这份作业制作精良的程度，每一个文件的作用都清晰地标出来，并且在作业之前有一道非常简单并且提供答案的热身题让初学者熟悉环境以及运行和上传作业的操作，后面的必做题和选做题的难度设置让人感觉不至于太简单但是经过思考也能做出来，配合上上传和打分系统，正反馈十足。</p>
@@ -316,502 +324,46 @@
 <p>此时运行 <code>ex1_multi.m</code>，你应该会发现，两种方法预测出的价格相差不大，都是在 $293000 左右。</p>
 <p>本次作业到此顺利完成。</p>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jortana.github.io/2021/07/30/Plex-%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0-nfo-%E6%96%87%E4%BB%B6%E5%92%8C%E6%9C%AC%E5%9C%B0%E5%A4%96%E6%8C%82%E5%AD%97%E5%B9%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Jortana">
-      <meta itemprop="description" content="不知道写了些啥">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一直是学生">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/07/30/Plex-%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0-nfo-%E6%96%87%E4%BB%B6%E5%92%8C%E6%9C%AC%E5%9C%B0%E5%A4%96%E6%8C%82%E5%AD%97%E5%B9%95/" class="post-title-link" itemprop="url">Plex 加载本地 nfo 文件和本地外挂字幕</a>
-        </h2>
+          <div class="post-tags">
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
+              <a href="/tags/Machine-Learning/" rel="tag"><i class="fa fa-tag"></i> Machine Learning</a>
+              <a href="/tags/Coursera/" rel="tag"><i class="fa fa-tag"></i> Coursera</a>
+              <a href="/tags/%E7%BC%96%E7%A8%8B%E4%BD%9C%E4%B8%9A/" rel="tag"><i class="fa fa-tag"></i> 编程作业</a>
+              <a href="/tags/Octave/" rel="tag"><i class="fa fa-tag"></i> Octave</a>
+              <a href="/tags/Linear-Regression/" rel="tag"><i class="fa fa-tag"></i> Linear Regression</a>
+          </div>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-30 07:01:31" itemprop="dateCreated datePublished" datetime="2021-07-30T07:01:31+08:00">2021-07-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-31 20:56:22" itemprop="dateModified" datetime="2021-07-31T20:56:22+08:00">2021-07-31</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%BA%94%E7%94%A8/" itemprop="url" rel="index"><span itemprop="name">服务器应用</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/07/30/Plex-%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0-nfo-%E6%96%87%E4%BB%B6%E5%92%8C%E6%9C%AC%E5%9C%B0%E5%A4%96%E6%8C%82%E5%AD%97%E5%B9%95/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/07/30/Plex-%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0-nfo-%E6%96%87%E4%BB%B6%E5%92%8C%E6%9C%AC%E5%9C%B0%E5%A4%96%E6%8C%82%E5%AD%97%E5%B9%95/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>前几天在鼓捣 Plex 的时候吃了一记 <a target="_blank" rel="noopener" href="https://www.tinymediamanager.org/">tinyMediaManager</a> 的安利，虽然他现在有一些收费的选项，不过还是有曲线救国的方法，可以免除搜索上限的方法（其实就是下别人弄好的包）。tMM 的好处在于你可以清楚地看到每部电影、电视剧的各种信息，是没找到还是漏了一些或者全找到了，一目了然，但是当 Plex 导入资料库时，往往不会用你搜集好的信息和图片，可能会自己再去搜一次，搜的不一定对，浪费时间，如果出现要手工调整的情况操作起来也比 tMM 麻烦一些，如何让 Plex 自动识别本地的信息呢，需要利用到 Plex 的插件：XBMCnfoMoviesImporter 和 XBMCnfoTVImporter。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/07/30/Plex-%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0-nfo-%E6%96%87%E4%BB%B6%E5%92%8C%E6%9C%AC%E5%9C%B0%E5%A4%96%E6%8C%82%E5%AD%97%E5%B9%95/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jortana.github.io/2021/07/13/%E7%94%A8docker%E5%B0%81%E5%8D%B0EasyConnect%E5%B9%B6%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Jortana">
-      <meta itemprop="description" content="不知道写了些啥">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一直是学生">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/13/%E7%94%A8docker%E5%B0%81%E5%8D%B0EasyConnect%E5%B9%B6%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-title-link" itemprop="url">用docker封印EasyConnect并连接远程桌面和数据库</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-13 23:25:44" itemprop="dateCreated datePublished" datetime="2021-07-13T23:25:44+08:00">2021-07-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-13 00:08:29" itemprop="dateModified" datetime="2022-06-13T00:08:29+08:00">2022-06-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">实用工具</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/07/13/%E7%94%A8docker%E5%B0%81%E5%8D%B0EasyConnect%E5%B9%B6%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/07/13/%E7%94%A8docker%E5%B0%81%E5%8D%B0EasyConnect%E5%B9%B6%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>我们学校要使用深信服家的 EasyConnect 才能在外面连内网，我又经常需要连学校的电脑和数据库，在使用了一段时间 EasyConnect 之后，我发现这玩意儿不仅流氓，而且难用。流氓在于不用他的时候进程关不掉，卸载还卸载不干净，也不知道他到底要获取什么数据，关于深信服的黑料网上一搜一大堆。难用在于我一开他，虽然是能连上学校内网了，但是我们学校校园网非常差劲，速度本身就不快，还经常连不上 GitHub，用了他之后，我在路由器上配置的代理也没有用，所以我心想能不能抛弃这个流氓客户端，就在不久前，我终于找到了一套解决方案。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/07/13/%E7%94%A8docker%E5%B0%81%E5%8D%B0EasyConnect%E5%B9%B6%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/07/30/Plex-%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0-nfo-%E6%96%87%E4%BB%B6%E5%92%8C%E6%9C%AC%E5%9C%B0%E5%A4%96%E6%8C%82%E5%AD%97%E5%B9%95/" rel="prev" title="Plex 加载本地 nfo 文件和本地外挂字幕">
+      <i class="fa fa-chevron-left"></i> Plex 加载本地 nfo 文件和本地外挂字幕
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jortana.github.io/2021/07/07/%E6%88%91%E5%86%99%E4%BA%86%E4%B8%80%E4%B8%AA%E5%BF%AB%E9%80%9F%E5%A1%AB%E5%85%A5%E5%BE%AE%E4%BA%91%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5%E7%9A%84%E8%84%9A%E6%9C%AC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Jortana">
-      <meta itemprop="description" content="不知道写了些啥">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一直是学生">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/07/%E6%88%91%E5%86%99%E4%BA%86%E4%B8%80%E4%B8%AA%E5%BF%AB%E9%80%9F%E5%A1%AB%E5%85%A5%E5%BE%AE%E4%BA%91%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5%E7%9A%84%E8%84%9A%E6%9C%AC/" class="post-title-link" itemprop="url">我写了一个快速填入微云离线下载链接的脚本</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-07 17:26:42" itemprop="dateCreated datePublished" datetime="2021-07-07T17:26:42+08:00">2021-07-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-08 10:37:36" itemprop="dateModified" datetime="2021-07-08T10:37:36+08:00">2021-07-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/07/07/%E6%88%91%E5%86%99%E4%BA%86%E4%B8%80%E4%B8%AA%E5%BF%AB%E9%80%9F%E5%A1%AB%E5%85%A5%E5%BE%AE%E4%BA%91%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5%E7%9A%84%E8%84%9A%E6%9C%AC/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/07/07/%E6%88%91%E5%86%99%E4%BA%86%E4%B8%80%E4%B8%AA%E5%BF%AB%E9%80%9F%E5%A1%AB%E5%85%A5%E5%BE%AE%E4%BA%91%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5%E7%9A%84%E8%84%9A%E6%9C%AC/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>事情是这样的，最近发现了一个宝藏网站 <a href="yyets.dmesg.app">yyets.dmesg.app</a>，解决了我找高清电视剧资源难的问题，但是又出现了新的问题，网站里面一些高清的资源是电驴资源，我试了很多软件，发现只有迅雷这个吸血鬼离线下的动，可是迅雷的定价并不便宜，于是我就四处寻找替代品，最后发现微云定价便宜而且离线下载也能下的动很多资源（但是确实还是有一些下不了），不过也可以算是差强人意。使用下来发现，微云有一个非常不方便的点，那就是不支持批量添加链接，手动添加一个链接需要经过五步：点击新建 -&gt; 点击离线下载 -&gt; 点击链接下载 -&gt; 填入链接 -&gt; 点击下一步，总共点击四次，CTRL + V 一次，添加一个还好，电视剧懂不懂十几二十集，这谁受得了啊，于是我开始着手解决这个问题。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/07/07/%E6%88%91%E5%86%99%E4%BA%86%E4%B8%80%E4%B8%AA%E5%BF%AB%E9%80%9F%E5%A1%AB%E5%85%A5%E5%BE%AE%E4%BA%91%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5%E7%9A%84%E8%84%9A%E6%9C%AC/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jortana.github.io/2021/07/01/you-get%E4%B8%8D%E8%87%AA%E5%8A%A8%E5%90%88%E5%B9%B6%E9%9F%B3%E9%A2%91%E5%92%8C%E8%A7%86%E9%A2%91%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Jortana">
-      <meta itemprop="description" content="不知道写了些啥">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一直是学生">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/01/you-get%E4%B8%8D%E8%87%AA%E5%8A%A8%E5%90%88%E5%B9%B6%E9%9F%B3%E9%A2%91%E5%92%8C%E8%A7%86%E9%A2%91%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" class="post-title-link" itemprop="url">you-get不自动合并音频和视频的解决办法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-01 22:26:44" itemprop="dateCreated datePublished" datetime="2021-07-01T22:26:44+08:00">2021-07-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-02 15:12:14" itemprop="dateModified" datetime="2021-07-02T15:12:14+08:00">2021-07-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">实用工具</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/07/01/you-get%E4%B8%8D%E8%87%AA%E5%8A%A8%E5%90%88%E5%B9%B6%E9%9F%B3%E9%A2%91%E5%92%8C%E8%A7%86%E9%A2%91%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/07/01/you-get%E4%B8%8D%E8%87%AA%E5%8A%A8%E5%90%88%E5%B9%B6%E9%9F%B3%E9%A2%91%E5%92%8C%E8%A7%86%E9%A2%91%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>you-get 是一个从网络上下载音频、视频、图片等资源的命令行工具，详细的介绍可以去他的<a target="_blank" rel="noopener" href="https://you-get.org/">官网</a>，在 Windows 下安装完 you-get 之后，虽然可以正常地进行下载，但是下载完的视频和音频常常是分开的，为了解决这个问题，我们需要安装 <strong>FFmpeg</strong>。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/07/01/you-get%E4%B8%8D%E8%87%AA%E5%8A%A8%E5%90%88%E5%B9%B6%E9%9F%B3%E9%A2%91%E5%92%8C%E8%A7%86%E9%A2%91%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jortana.github.io/2021/06/29/Hexo-NexT%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Jortana">
-      <meta itemprop="description" content="不知道写了些啥">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一直是学生">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/06/29/Hexo-NexT%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">Hexo NexT主题配置遇到的坑以及解决方法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-06-29 23:04:51" itemprop="dateCreated datePublished" datetime="2021-06-29T23:04:51+08:00">2021-06-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-02 15:13:48" itemprop="dateModified" datetime="2021-07-02T15:13:48+08:00">2021-07-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/06/29/Hexo-NexT%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/06/29/Hexo-NexT%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在配置好 Hexo 之后，第一件事就是选一个好看的主题，之前看了许多别人的博客，我对NexT这款主题喜欢很久了，于是我赶紧打开了他的官方文档进行配置，于是第一个坑出现了，你按照“官方文档”进行配置之后会发现无法正常运行，在这里记录一下如何找到正确的文档以及配置中文和 Valine 评论功能。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/06/29/Hexo-NexT%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
   
 
 
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -858,6 +410,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%83%AD%E8%BA%AB%E7%BB%83%E4%B9%A0-Simple-Octave-MATLAB-function"><span class="nav-number">1.</span> <span class="nav-text">1 热身练习 Simple Octave&#x2F;MATLAB function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%8D%95%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92-Linear-regression-with-one-variable"><span class="nav-number">2.</span> <span class="nav-text">2 单变量线性回归 Linear regression with one variable</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E7%BB%98%E5%88%B6%E6%95%B0%E6%8D%AE-Plotting-the-Data"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 绘制数据 Plotting the Data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E8%AE%A1%E7%AE%97%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0-Computing-the-cost-J-theta"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 计算代价函数 Computing the cost $ J(\theta) $</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D-Gradient-descent"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 梯度下降 Gradient descent</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%A4%9A%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92-Linear-regression-with-multiple-variables"><span class="nav-number">3.</span> <span class="nav-text">3 多变量线性回归 Linear regression with multiple variables</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95-Gradient-descent"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 梯度下降法 Gradient descent</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-1-%E7%89%B9%E5%BE%81%E5%BD%92%E4%B8%80%E5%8C%96-Feature-Normalization"><span class="nav-number">3.1.1.</span> <span class="nav-text">3.1.1 特征归一化 Feature Normalization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-2-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D-Gradient-descent"><span class="nav-number">3.1.2.</span> <span class="nav-text">3.1.2 梯度下降 Gradient descent</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9B%B4%E9%AB%98%E6%95%88%E7%9A%84%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95"><span class="nav-number">3.1.2.1.</span> <span class="nav-text">更高效的代价函数计算方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9%E5%AD%A6%E4%B9%A0%E7%8E%87%E5%92%8C%E8%BF%AD%E4%BB%A3%E6%AC%A1%E6%95%B0"><span class="nav-number">3.1.2.2.</span> <span class="nav-text">更改学习率和迭代次数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-3-%E4%BB%B7%E6%A0%BC%E9%A2%84%E6%B5%8B"><span class="nav-number">3.1.3.</span> <span class="nav-text">3.1.3 价格预测</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E6%AD%A3%E8%A7%84%E6%96%B9%E7%A8%8B%E6%B3%95-Normal-Equations"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 正规方程法 Normal Equations</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-%E6%AD%A3%E8%A7%84%E6%96%B9%E7%A8%8B%E8%AE%A1%E7%AE%97"><span class="nav-number">3.2.1.</span> <span class="nav-text">3.2.1 正规方程计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-%E4%BB%B7%E6%A0%BC%E9%A2%84%E6%B5%8B"><span class="nav-number">3.2.2.</span> <span class="nav-text">3.2.2 价格预测</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
