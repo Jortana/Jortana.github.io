@@ -248,16 +248,16 @@ J(\theta) = \frac{1}{2m}\sum_{i=1}^{m}(h_{\theta}(x^{(i)}) - y^{(i)})^2</script>
 <script type="math/tex; mode=display">
 h_{\theta}(x) = \theta^{T}x = \theta_{0} + \theta_{1}x_{1}</script><p>要注意的是，因为我们在计算 $ h_{\theta}(x) $ 时用了两个 $ \theta $，所以这里传过来的 <code>X</code> 是经过了一步处理的，原本的 $ X $ 是人口数，为了配合两个  $ \theta $，主程序在 <code>X</code> 的第一列加了一列的 <code>1</code>，也就是说将 <strong>原本 $ m \times 1$ 的矩阵变成了 $ m \times 2 $ 的矩阵</strong>。</p>
 <p>在课程中老师也说过，这个式子最好用直接 <strong>用矩阵或向量来计算</strong>，而 <strong>不是</strong> 用循环计算。</p>
-<p>$ h<em>{\theta}(x) $ 可以直接从公式中看出来，用 $ \theta $ 和 $ x $ 相乘即可，这里要注意，公式中的 $ \theta $ 是进行了转置操作的，在题目中并 <strong>不需要</strong> 进行这一步，因为主程序中生成 $ \theta $ 时，生成的就是一个 $ 2 \times 1 $ 的矩阵。$ y $ 直接就是一个列向量，所以 $ h</em>{\theta}(x^{(i)}) - y^{(i)}$ 可以用 <code>X * theta - y</code> 计算得出，计算得出的结果是一个 $ m \times 1 $ 的矩阵。</p>
+<p>$ h_{\theta}(x) $ 可以直接从公式中看出来，用 $ \theta $ 和 $ x $ 相乘即可，这里要注意，公式中的 $ \theta $ 是进行了转置操作的，在题目中并 <strong>不需要</strong> 进行这一步，因为主程序中生成 $ \theta $ 时，生成的就是一个 $ 2 \times 1 $ 的矩阵。$ y $ 直接就是一个列向量，所以 $ h_{\theta}(x^{(i)}) - y^{(i)}$ 可以用 <code>X * theta - y</code> 计算得出，计算得出的结果是一个 $ m \times 1 $ 的矩阵。</p>
 <p>我们需要把上面计算的结果平方然后求和 <code>sum((X * theta - y) .^ 2)</code>，这里注意，在 Octave 中，<strong>两个矩阵之间</strong> 或者 <strong>数和矩阵</strong> 之间是可以直接进行 <code>*</code> 和 <code>-</code> 的操作的（在矩阵大小满足条件的前提下），但是<strong>平方是不可以的</strong>，所以这里要用 <code>.^</code>。</p>
 <p>根据公式还需要乘以 $ \frac{1}{2m} $，所以最后我们需要补充在文件里的代码为：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">J = sum((X * theta - y) .^ 2) / (2 * m);</span><br></pre></td></tr></table></figure>
 <h3 id="2-3-梯度下降-Gradient-descent"><a href="#2-3-梯度下降-Gradient-descent" class="headerlink" title="2.3 梯度下降 Gradient descent"></a>2.3 梯度下降 Gradient descent</h3><p>这一步就是要用梯度下降法找到合适的 $ \theta $，完成我们的方程，要完成的文件是 <code>gradientDescent.m</code>，作业中也给出了公式：</p>
 <script type="math/tex; mode=display">
-\theta_{j} := \theta_{j} - \alpha\frac{1}{m}\sum_{i=1}^{m}(h_{\theta}(x^{(i)}) - y^{(i)})x_{j}^{(i)}</script><p>上一步我们计算过 $ h<em>{\theta}(x^{(i)}) - y^{(i)} $ ，可以用 <code>X * theta - y</code> 计算得出，这一步要将这个结果乘上 $ x</em>{j}^{(i)} $ ，也就是乘上 $ X $ 矩阵中的每一个 $ x $，最后求和。换句话说，就是 $ X^{T} $ 乘 $ h_{\theta}(x^{(i)}) - y^{(i)} $，代码写成 <code>X&#39; * (X * theta - y)</code> 。</p>
+\theta_{j} := \theta_{j} - \alpha\frac{1}{m}\sum_{i=1}^{m}(h_{\theta}(x^{(i)}) - y^{(i)})x_{j}^{(i)}</script><p>上一步我们计算过 $ h_{\theta}(x^{(i)}) - y^{(i)} $ ，可以用 <code>X * theta - y</code> 计算得出，这一步要将这个结果乘上 $ x_{j}^{(i)} $ ，也就是乘上 $ X $ 矩阵中的每一个 $ x $，最后求和。换句话说，就是 $ X^{T} $ 乘 $ h_{\theta}(x^{(i)}) - y^{(i)} $，代码写成 <code>X&#39; * (X * theta - y)</code> 。</p>
 <p>最后，我们应该补充到文件中的代码应该是：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theta = theta - alpha * X&#x27; * (X * theta - y) / m;</span><br></pre></td></tr></table></figure>
-<p>此时运行 <code>ex1.m</code> 就可以看到完整结果了，这个程序中还帮我们做了结果的可视化，可以清晰地看到 $ J(\theta) $ 与 $ \theta<em>{0} $ 和 $ \theta</em>{1} $ 的关系。</p>
+<p>此时运行 <code>ex1.m</code> 就可以看到完整结果了，这个程序中还帮我们做了结果的可视化，可以清晰地看到 $ J(\theta) $ 与 $ \theta_{0} $ 和 $ \theta_{1} $ 的关系。</p>
 <p>到这里必做题的部分就结束了，下面是选做题。</p>
 <h2 id="3-多变量线性回归-Linear-regression-with-multiple-variables"><a href="#3-多变量线性回归-Linear-regression-with-multiple-variables" class="headerlink" title="3 多变量线性回归 Linear regression with multiple variables"></a>3 多变量线性回归 Linear regression with multiple variables</h2><p>这一部分的任务是根据已有的数据预测房价，给我们的数据有 3 列，分别是房子的大小、卧室的数量和价格。这一部分的主程序文件是 <code>ex1_multi.m</code>。</p>
 <p>这个任务需要我们用前面学过的两种不同的方法进行价格预测，分别是 <strong>梯度下降法（Gradient descent）</strong> 和 <strong>正规方程法（Normal Equations）</strong>。</p>
