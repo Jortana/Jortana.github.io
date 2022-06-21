@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jortana.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本周的课程是 Logistic Regression，是用来解决分类问题（Classification）的基本算法。作业也是两个分类任务，完整代码在 这里。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Andrew Ng机器学习ex2(Logistic Regression)编程作业">
+<meta property="og:url" content="https://jortana.github.io/2022/06/21/Andrew-Ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ex2-Logistic-Regression-%E7%BC%96%E7%A8%8B%E4%BD%9C%E4%B8%9A/index.html">
+<meta property="og:site_name" content="一直是学生">
+<meta property="og:description" content="本周的课程是 Logistic Regression，是用来解决分类问题（Classification）的基本算法。作业也是两个分类任务，完整代码在 这里。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-21T05:24:57.000Z">
+<meta property="article:modified_time" content="2022-06-21T06:52:59.273Z">
+<meta property="article:author" content="Jortana">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="Coursera">
+<meta property="article:tag" content="编程作业">
+<meta property="article:tag" content="Octave">
+<meta property="article:tag" content="Logistic Regression">
+<meta property="article:tag" content="Classification">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://jortana.github.io/2022/06/21/Andrew-Ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ex2-Logistic-Regression-%E7%BC%96%E7%A8%8B%E4%BD%9C%E4%B8%9A/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Andrew Ng机器学习ex2(Logistic Regression)编程作业 | 一直是学生</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一直是学生</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jortana.github.io/2022/06/21/Andrew-Ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ex2-Logistic-Regression-%E7%BC%96%E7%A8%8B%E4%BD%9C%E4%B8%9A/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jortana">
+      <meta itemprop="description" content="不知道写了些啥">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一直是学生">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Andrew Ng机器学习ex2(Logistic Regression)编程作业
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-06-21 13:24:57 / 修改时间：14:52:59" itemprop="dateCreated datePublished" datetime="2022-06-21T13:24:57+08:00">2022-06-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/06/21/Andrew-Ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ex2-Logistic-Regression-%E7%BC%96%E7%A8%8B%E4%BD%9C%E4%B8%9A/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/06/21/Andrew-Ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ex2-Logistic-Regression-%E7%BC%96%E7%A8%8B%E4%BD%9C%E4%B8%9A/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本周的课程是 Logistic Regression，是用来解决分类问题（Classification）的基本算法。作业也是两个分类任务，完整代码在 <a target="_blank" rel="noopener" href="https://github.com/Jortana/coursera-machine-learning/tree/main/ex2-octave">这里</a>。</p>
+<span id="more"></span>
+<h2 id="1-逻辑回归-Logistic-Regression"><a href="#1-逻辑回归-Logistic-Regression" class="headerlink" title="1 逻辑回归 Logistic Regression"></a>1 逻辑回归 Logistic Regression</h2><p>第一个任务是根据学生的两次成绩，判断他是否会被录取，在这个任务中我们需要完成：</p>
+<ul>
+<li>数据可视化</li>
+<li>完成 sigmoid 函数</li>
+<li>计算 cost function 和 gradient</li>
+<li>用 fminunc 优化计算</li>
+<li>预测并评估</li>
+</ul>
+<h3 id="1-1-数据可视化-Visualizing-the-data"><a href="#1-1-数据可视化-Visualizing-the-data" class="headerlink" title="1.1 数据可视化 Visualizing the data"></a>1.1 数据可视化 Visualizing the data</h3><p>这一步比较简单，如果对画图函数不是很了解也可以照着作业中给出的答案完成，画图函数的参数是比较简单的，而且基本上可以说一目了然。我们需要在 <code>plotData.m</code> 中合适的位置输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pos = find(y == 1);</span><br><span class="line">neg = find(y == 0);</span><br><span class="line"></span><br><span class="line">plot(X(pos, 1), X(pos, 2), &#x27;k+&#x27;, &#x27;LineWidth&#x27;, 2, &#x27;MarkerSize&#x27;, 7);</span><br><span class="line">plot(X(neg, 1), X(neg, 2), &#x27;ko&#x27;, &#x27;MarkerFaceColor&#x27;, &#x27;y&#x27;, &#x27;MarkerSize&#x27;, 7);</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-完成-sigmoid-函数-Warmup-exercise-sigmoid-function"><a href="#1-2-完成-sigmoid-函数-Warmup-exercise-sigmoid-function" class="headerlink" title="1.2 完成 sigmoid 函数 Warmup exercise: sigmoid function"></a>1.2 完成 sigmoid 函数 Warmup exercise: sigmoid function</h3><p>这一步我们需要自己实现 sigmoid 函数，并且我们实现的这个函数需要支持输入 <strong>数、向量和矩阵</strong>，对于向量和矩阵，我们需要对其中的每一个元素进行计算。</p>
+<p>sigmoid 函数的定义长这样：</p>
+<script type="math/tex; mode=display">
+g(z)=\frac{1}{1 + e^{-z}}</script><p>这一个小任务也是比较简单，注意我们要支持向量和矩阵，所以用两个 for 循环进行遍历即可，在 <code>sigmoid.m</code> 中合适的位置输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for i = 1:size(z, 1),</span><br><span class="line">  for j = 1:size(z, 2),</span><br><span class="line">    g(i, j) = 1 / (1 + exp(-z(i, j)));</span><br><span class="line">  end;</span><br><span class="line">end;</span><br></pre></td></tr></table></figure>
+<p>注意，在 Octave 中，for 循环后要加 <code>,</code>，并且要配合 <code>end</code> 使用。</p>
+<h3 id="1-3-计算代价函数和梯度-Cost-function-and-gradient"><a href="#1-3-计算代价函数和梯度-Cost-function-and-gradient" class="headerlink" title="1.3 计算代价函数和梯度 Cost function and gradient"></a>1.3 计算代价函数和梯度 Cost function and gradient</h3><p>因为我们后面需要用到 fminunc，所以这一次计算代价函数的同时也需要计算梯度，以方便后续的使用。</p>
+<p>代价函数的计算公式长这样：</p>
+<script type="math/tex; mode=display">
+J(\theta) = \frac{1}{m}\sum_{i=1}^{m}[-y^{(i)}\log(h_{\theta}(x^{(i)})) - (1-y^{(i)})\log(1-h_{\theta}(x^{(i)}))]</script><p>梯度的计算公式长这样：</p>
+<script type="math/tex; mode=display">
+\frac{\partial J(\theta)}{\partial \theta_{j}} = \frac{1}{m}\sum_{i=1}^{m}(h_{\theta}(x^{(i)})-y^{(i)})x_{j}^{(i)}</script><p>在 <code>costFunction.m</code> 中合适的位置输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">% 计算 h_theta</span><br><span class="line">h_theta = sigmoid(X * theta);</span><br><span class="line">J = (log(h_theta&#x27;) * (-y) - log(1 - h_theta&#x27;) * (1 - y)) / m;</span><br><span class="line"></span><br><span class="line">% 计算 grad</span><br><span class="line">grad = (X&#x27; * (h_theta - y)) / m;</span><br></pre></td></tr></table></figure>
+<p>这里有三个地方都用到了 <code>sigmoid(X * theta)</code>，所以先进行计算，可以略微提高一点效率，主要是可以让代码变得清晰一些。</p>
+<h3 id="1-4-用-fminunc-优化计算-Learning-parameters-using-fminunc"><a href="#1-4-用-fminunc-优化计算-Learning-parameters-using-fminunc" class="headerlink" title="1.4 用 fminunc 优化计算 Learning parameters using fminunc"></a>1.4 用 fminunc 优化计算 Learning parameters using fminunc</h3><p>在上周的作业中，我们用梯度下降法完成了任务，这周我们需要用到一个更复杂的算法，我们提供代价函数和梯度，算法自动帮我们完成参数的计算。作业提供的代码已经帮我们实现了，可以看一下 <code>ex2.m</code> 中的相关代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">%  Set options for fminunc</span><br><span class="line">options = optimset(&#x27;GradObj&#x27;, &#x27;on&#x27;, &#x27;MaxIter&#x27;, 400);</span><br><span class="line"></span><br><span class="line">%  Run fminunc to obtain the optimal theta</span><br><span class="line">%  This function will return theta and the cost </span><br><span class="line">[theta, cost] = ...</span><br><span class="line">	fminunc(@(t)(costFunction(t, X, y)), initial_theta, options);</span><br></pre></td></tr></table></figure>
+<h3 id="1-5-预测并评估-Evaluating-logistic-regression"><a href="#1-5-预测并评估-Evaluating-logistic-regression" class="headerlink" title="1.5 预测并评估 Evaluating logistic regression"></a>1.5 预测并评估 Evaluating logistic regression</h3><p>准备工作已经全部做完，我们现在要根据我们得到的模型来进行预测，并看一下预测的准确率如何。（这里的准确率是用实验数据作为数据集计算的，并没有准备额外的测试数据集）</p>
+<p>预测的代码也比较简单，只需判断最终得出的结果是否大于 $ 0.5 $ 即可，大于或等于记为 $ 1 $，小于则记为 $ 0 $。这里有很多种实现方式，我自己是对每个数据进行计算之后 <strong>加上 0.5 然后向下取整</strong>。</p>
+<p>在 <code>predict.m</code> 中合适的位置输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p = floor(sigmoid(X * theta) + 0.5);</span><br></pre></td></tr></table></figure>
+<h2 id="2-正则化逻辑回归-Regularized-logistic-regression"><a href="#2-正则化逻辑回归-Regularized-logistic-regression" class="headerlink" title="2 正则化逻辑回归 Regularized logistic regression"></a>2 正则化逻辑回归 Regularized logistic regression</h2><p>在这一部分中，我们需要用到 <strong>正则化逻辑回归 Regularized logistic regression </strong>，现在有一批芯片测试的结果，每一个芯片都进行了两轮的测试，并且标记出了合格与不合格，现在我们要根据这两个测试的结果判断这个芯片是否合格。</p>
+<p>在这个任务中我们需要完成：</p>
+<ul>
+<li>数据可视化</li>
+<li>特征映射</li>
+<li>计算 cost function 和 gradient</li>
+<li>用 fminunc 优化计算</li>
+<li>可视化决定边界</li>
+<li>【可选】调整参数</li>
+</ul>
+<h3 id="2-1-数据可视化"><a href="#2-1-数据可视化" class="headerlink" title="2.1 数据可视化"></a>2.1 数据可视化</h3><p>这一步实际上我们在第一个任务的时候已经完成</p>
+<h3 id="2-2-特征映射"><a href="#2-2-特征映射" class="headerlink" title="2.2 特征映射"></a>2.2 特征映射</h3><p>由于我们的数据中的特征非常少，只有两个，是两次测试的结果，我们需要用这两个特征进行高次的运算，来获取更多的特征，这一步在提供的程序中也已经完成，相关代码在 <code>mapFeature.m</code> 中。</p>
+<h3 id="2-3-计算代价函数和梯度-Cost-function-and-gradient"><a href="#2-3-计算代价函数和梯度-Cost-function-and-gradient" class="headerlink" title="2.3 计算代价函数和梯度 Cost function and gradient"></a>2.3 计算代价函数和梯度 Cost function and gradient</h3><p>这一步和第一个任务就略有不同了，因为我们需要正则化，所以需要在相关计算公式的基础上加以改动，并且第一项是不需要进行这个操作的。</p>
+<p>代价函数的计算公式为：</p>
+<script type="math/tex; mode=display">
+J(\theta) = \frac{1}{m}\sum_{i=1}^{m}[-y^{(i)}\log(h_{\theta}(x^{(i)})) - (1-y^{(i)})\log(1-h_{\theta}(x^{(i)}))] + \frac{\lambda}{2m}\sum_{j=1}^{n}\theta_{j}^2</script><p>梯度的计算公式为：</p>
+<script type="math/tex; mode=display">
+\frac{\partial J(\theta)}{\partial \theta_{j}} = \frac{1}{m}\sum_{i=1}^{m}(h_{\theta}(x^{(i)})-y^{(i)})x_{j}^{(i)} \quad for \ j=0\\
+\frac{\partial J(\theta)}{\partial \theta_{j}} =\left ( \frac{1}{m}\sum_{i=1}^{m}(h_{\theta}(x^{(i)})-y^{(i)})x_{j}^{(i)} \right ) + \frac{\lambda}{m}\theta_{j} \quad for \ j \ge 1</script><p>相应地，我们的代码也只要小改即可，在 <code>costFunctionReg.m</code> 中合适的位置输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">% 计算 h_theta</span><br><span class="line">h_theta = sigmoid(X * theta);</span><br><span class="line">theta_length = size(theta, 1);</span><br><span class="line">J = ((log(h_theta&#x27;) * (-y) - log(1 - h_theta&#x27;) * (1 - y)) / m) + (lambda * theta(2:theta_length)&#x27; * theta(2:theta_length) / (2 * m));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">% 计算 grad</span><br><span class="line">grad = (X&#x27; * (h_theta - y)) / m + lambda * theta / m;</span><br><span class="line">grad(1) = grad(1) - lambda * theta(1) / m;</span><br></pre></td></tr></table></figure>
+<h3 id="2-4-用-fminunc-优化计算"><a href="#2-4-用-fminunc-优化计算" class="headerlink" title="2.4 用 fminunc 优化计算"></a>2.4 用 fminunc 优化计算</h3><p>这一步也不需要我们手动输入代码，在第一个任务中我们也已经看到了如何进行计算。</p>
+<h3 id="2-5-可视化决定边界"><a href="#2-5-可视化决定边界" class="headerlink" title="2.5 可视化决定边界"></a>2.5 可视化决定边界</h3><p>这一步也不需要我们输入代码，我们可以运行 <code>ex2_reg.m</code> 看看边界的情况，有了这个图在后面一步修改参数的时候可以很明显地看出来参数对于结果的影响。</p>
+<h3 id="2-6-【可选】调整参数"><a href="#2-6-【可选】调整参数" class="headerlink" title="2.6 【可选】调整参数"></a>2.6 【可选】调整参数</h3><p>在运用正则化技术的时候，我们会设定一个 <code>lambda</code> 参数， 这个参数的大小决定了正则化影响的程度有多大，作业给的代码中默认设置为 <code>1</code>，我们可以调整其大小再观察边界的生成情况，直观地感受这个参数的影响程度。这里需要注意，修改这个参数是要修改 <code>ex2_reg.m</code> 文件中 64 行和 110 行的数值，两个都需要修改。</p>
+<p>本次作业到此顺利完成。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
+              <a href="/tags/Machine-Learning/" rel="tag"><i class="fa fa-tag"></i> Machine Learning</a>
+              <a href="/tags/Coursera/" rel="tag"><i class="fa fa-tag"></i> Coursera</a>
+              <a href="/tags/%E7%BC%96%E7%A8%8B%E4%BD%9C%E4%B8%9A/" rel="tag"><i class="fa fa-tag"></i> 编程作业</a>
+              <a href="/tags/Octave/" rel="tag"><i class="fa fa-tag"></i> Octave</a>
+              <a href="/tags/Logistic-Regression/" rel="tag"><i class="fa fa-tag"></i> Logistic Regression</a>
+              <a href="/tags/Classification/" rel="tag"><i class="fa fa-tag"></i> Classification</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/06/13/Andrew-Ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ex1-Linear-Regression-%E7%BC%96%E7%A8%8B%E4%BD%9C%E4%B8%9A/" rel="prev" title="Andrew Ng 机器学习 ex1(Linear Regression) 编程作业">
+      <i class="fa fa-chevron-left"></i> Andrew Ng 机器学习 ex1(Linear Regression) 编程作业
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92-Logistic-Regression"><span class="nav-number">1.</span> <span class="nav-text">1 逻辑回归 Logistic Regression</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96-Visualizing-the-data"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 数据可视化 Visualizing the data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E5%AE%8C%E6%88%90-sigmoid-%E5%87%BD%E6%95%B0-Warmup-exercise-sigmoid-function"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 完成 sigmoid 函数 Warmup exercise: sigmoid function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E8%AE%A1%E7%AE%97%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0%E5%92%8C%E6%A2%AF%E5%BA%A6-Cost-function-and-gradient"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 计算代价函数和梯度 Cost function and gradient</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-%E7%94%A8-fminunc-%E4%BC%98%E5%8C%96%E8%AE%A1%E7%AE%97-Learning-parameters-using-fminunc"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 用 fminunc 优化计算 Learning parameters using fminunc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-%E9%A2%84%E6%B5%8B%E5%B9%B6%E8%AF%84%E4%BC%B0-Evaluating-logistic-regression"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 预测并评估 Evaluating logistic regression</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%AD%A3%E5%88%99%E5%8C%96%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92-Regularized-logistic-regression"><span class="nav-number">2.</span> <span class="nav-text">2 正则化逻辑回归 Regularized logistic regression</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 数据可视化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E7%89%B9%E5%BE%81%E6%98%A0%E5%B0%84"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 特征映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E8%AE%A1%E7%AE%97%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0%E5%92%8C%E6%A2%AF%E5%BA%A6-Cost-function-and-gradient"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 计算代价函数和梯度 Cost function and gradient</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-%E7%94%A8-fminunc-%E4%BC%98%E5%8C%96%E8%AE%A1%E7%AE%97"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 用 fminunc 优化计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-%E5%8F%AF%E8%A7%86%E5%8C%96%E5%86%B3%E5%AE%9A%E8%BE%B9%E7%95%8C"><span class="nav-number">2.5.</span> <span class="nav-text">2.5 可视化决定边界</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-%E3%80%90%E5%8F%AF%E9%80%89%E3%80%91%E8%B0%83%E6%95%B4%E5%8F%82%E6%95%B0"><span class="nav-number">2.6.</span> <span class="nav-text">2.6 【可选】调整参数</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Jortana</p>
+  <div class="site-description" itemprop="description">不知道写了些啥</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Jortana" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Jortana" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-coffee"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jortana</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'z6OPNmrgPP1qDgPIUEAhLhRT-gzGzoHsz',
+      appKey     : 'goxbpiIwXUx5T8uxGHFxz8hg',
+      placeholder: "加入讨论...",
+      avatar     : 'mp',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
