@@ -189,7 +189,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-07-13 14:17:48" itemprop="dateModified" datetime="2022-07-13T14:17:48+08:00">2022-07-13</time>
+                <time title="修改时间：2022-07-13 14:24:19" itemprop="dateModified" datetime="2022-07-13T14:24:19+08:00">2022-07-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -227,114 +227,14 @@
 
       
           <h2 id="0-项目起源"><a href="#0-项目起源" class="headerlink" title="0 项目起源"></a>0 项目起源</h2><p>事情是这样的，在几周之前，大学同学开始了以前常常进行的英雄联盟 5v5 活动，某一天，我晚上看着掌上英雄联盟看了很多数据，我和其中一个学长 HG 讨论起来打法、胜率、搭配之类的问题。后来一想，如果可以分析我们的对局数据，会不会发现一些有趣的结论或者帮助我们赛区提升整体水平，于是这个项目就开始了，目前只是做了数据和胜率的相关分析，从分析结果和游戏时的感性感受，大家很容易发现有一些人 <strong>很影响游戏的胜负</strong>，包括正面和负面，因此 HG 灵光乍现，将本项目成为 <strong>退潮计划</strong>，网站已经部署：<a target="_blank" rel="noopener" href="http://lol.jortana.fun/players">点击访问</a>。</p>
-<h2 id="1-数据处理"><a href="#1-数据处理" class="headerlink" title="1 数据处理"></a>1 数据处理</h2><p>在想起来应该记录一下开发的进度时，退潮计划线上 1.0 版本已经上线了，功能包括 <strong>查看重要数据</strong> 和 <strong>半自动化更新对局记录</strong>。</p>
-<p>重要数据目前每周都会变化，因为当前对局信息较少，每一周比赛之后，各个数据的变化可能都会很大，在做相关分析的时候，对胜率影响更大的因素也会随之变化，举例说明，开发的第一周只有 12 场对局记录，我们最后得出的结论是影响胜率的因素有：伤害转换率、小龙控制率、10-20分钟对位补刀差、KDA 等，而第二周因为打野表现太过出色，野区的影响就大幅上升，而对位补刀差、KDA 等因素就不再重要，随着对局记录的增加以及算法的选择不同，最后的重要数据应该趋于稳定。</p>
-<h3 id="1-1-数据收集"><a href="#1-1-数据收集" class="headerlink" title="1.1 数据收集"></a>1.1 数据收集</h3><p>退潮计划目前是根据收集到的数据对胜率进行相关分析，分析到底哪些数据对对局的胜负影响更大，所以第一步就是收集数据，在网上查找有没有开放 api，我在几年前也找过相关的东西，印象中国服是没有这种接口的，没想到这么多年也确实没有，后来发现有一篇文章中提到了英雄联盟官网上是有详细的对局记录的，登录之后就可以通过接口获取对局的基本信息，也可以根据接口查找到对局的详细信息。</p>
-<p>获取对局列表的接口长这样：<code>https://lol.sw.game.qq.com/lol/api/?c=Battle&amp;a=matchList&amp;areaId=1&amp;accountId=$&#123;你的id&#125;</code></p>
-<p>这里的 <code>accountId</code> 可以先在英雄联盟官网登录之后然后访问 <code>https://lol.ams.game.qq.com/lol/Go/dollclip/GetUserGame?actid=12&amp;SearchType=LOLRole&amp;areaid=1</code> 获取，这个接口会返回你登录的这个账户的信息，大概长这样：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> J_GetUserGame = &#123;<span class="string">&quot;LOLRole&quot;</span>:&#123;<span class="string">&quot;accountId&quot;</span>:<span class="string">&quot;你的accountId&quot;</span>,<span class="string">&quot;result&quot;</span>:<span class="string">&quot;0&quot;</span>,<span class="string">&quot;summonerLevel&quot;</span>:<span class="string">&quot;382&quot;</span>,<span class="string">&quot;summonerName&quot;</span>:<span class="string">&quot;你的名字&quot;</span>&#125;,<span class="string">&quot;iRet&quot;</span>:<span class="number">0</span>,<span class="string">&quot;sMsg&quot;</span>:<span class="string">&quot;SUCCESS&quot;</span>,<span class="string">&quot;version&quot;</span>:<span class="string">&quot;1.0&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
-<p>将你从这里获取的 accountId 填到前面获取对局列表的 url 里，就可以看到你的对局列表了，当然，这里是要保持登录状态的。</p>
-<h3 id="1-2-数据分析"><a href="#1-2-数据分析" class="headerlink" title="1.2 数据分析"></a>1.2 数据分析</h3><p>我们找了几个人，讨论我们应该对什么数据进行分析，最终我们确定了十几项比较有用的数据：</p>
-<ul>
-<li>胜率<ul>
-<li>伤害转换率</li>
-<li>对位经济差</li>
-<li>视野分</li>
-<li>场均击杀数</li>
-<li>承伤占比</li>
-<li>伤害占比</li>
-<li>KDA</li>
-<li>所在队伍控龙率</li>
-<li>所在队伍大龙击杀率</li>
-<li>所在队伍每场比赛先锋击杀数量</li>
-<li>分均对位补刀差</li>
-</ul>
-</li>
-</ul>
-<p>前两周我们对胜率进行相关分析，得出对胜利影响最大的因素，并在网页上对重要数据进行展示，可能是因为数据太少或者方法选择比较简单，前两周得出的结论有点互为因果的意思，比如第一周的数据大致如下：</p>
-<p><img src="/2022/07/11/%E9%80%80%E6%BD%AE%E8%AE%A1%E5%88%92%E5%BC%80%E5%8F%91%E5%91%A8%E8%AE%B0-0/退潮计划开发周记-0\第一周数据.png" alt="第一周数据"></p>
-<p>有几个人是只有参加了少于 3 场比赛的，所以数据可能特别好或者特别不好，除此之外，可以看出来，前几名选手的数据会有 2 - 3 项的数据特别高，第 1 名甚至 4 项数据都特别高。我们得出的结论和模型如下：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>预测变量</th>
-<th>控制变量</th>
-<th>自变量</th>
-<th>显著性</th>
-<th>△R²</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>胜率</td>
-<td>场均对位经济差</td>
-<td>KDA</td>
-<td>0.05</td>
-<td>0.22</td>
-</tr>
-<tr>
-<td>胜率</td>
-<td>KDA</td>
-<td>场均对位经济差</td>
-<td>0.021</td>
-<td>0.12</td>
-</tr>
-<tr>
-<td>场均对位经济差</td>
-<td>KDA</td>
-<td>场均对位补刀差（10-20min）</td>
-<td>0.101</td>
-<td>0.09</td>
-</tr>
-<tr>
-<td>场均对位经济差</td>
-<td>KDA</td>
-<td>先锋小龙控制率</td>
-<td>0.131</td>
-<td>0.07</td>
-</tr>
-<tr>
-<td>胜率</td>
-<td>场均对位经济差</td>
-<td>场均对位补刀差（10-20min）  先锋小龙控制率</td>
-<td>不显著</td>
-<td>——</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p><img src="/2022/07/11/%E9%80%80%E6%BD%AE%E8%AE%A1%E5%88%92%E5%BC%80%E5%8F%91%E5%91%A8%E8%AE%B0-0/退潮计划开发周记-0\第一周模型.png" alt="第一周模型"></p>
-<p>再来看第二周的数据，第二周数据因为某个科研人员看不懂数据库导致第一次有好看的图和表的数据是有问题的，因此没法展示，最后我们发现第二周的数据和野区有非常大的相关，而且第二周我们感性认识上打野确实表现非常出色。</p>
-<p>第一周我们直接用每个数据的 <strong>排名进行相加</strong>，第二周我们改进为用 <strong>标准分</strong> 进行排名，这样也可以看出来每个选手的差距有多大。</p>
-<p>我们得出的结论也引发我们思考：<strong>到底是因为掌控了野区打出了对位经济差还是因为线上有优势才能掌控野区</strong> 等一系列鸡蛋问题，这也是我们在后面的分析中需要思考的问题。</p>
-<h2 id="2-网站开发"><a href="#2-网站开发" class="headerlink" title="2 网站开发"></a>2 网站开发</h2><p>退潮计划网站的开发是跟着数据和功能走的，也就是说我们得到了什么数据、有了什么结论或者需要什么功能就会做相应的页面，前两周的版本包括：<strong>重要数据展示 </strong>和 <strong>半自动化数据处理</strong>。</p>
-<h3 id="2-1-功能介绍"><a href="#2-1-功能介绍" class="headerlink" title="2.1 功能介绍"></a>2.1 功能介绍</h3><p>我在开始规划的时候选用了 node 一套的技术栈，大致为 React + Express + MongoDB，这也是我第一次用这三个东西。</p>
-<p>收集数据是在后端用 axios 附带手动加上的 cookie 进行数据爬取并存入 <code>games</code> 集合。收集之后对每一场游戏进行分析，将需要的数据按照选手重新组合存入 <code>players</code>。</p>
-<p>因为考虑到后面需要用到英雄的数据，所以也顺手给英雄数据存了一个集合 <code>champions</code>，英雄数据的收集是比较简单的，直接从这个 url 就可以获取到英雄的数据：<code>https://game.gtimg.cn/images/lol/act/img/js/heroList/hero_list.js?ts=2759405</code>，我还在网上看见别人分享的可以获取某个英雄详细信息的链接：<code>https://game.gtimg.cn/images/lol/act/img/js/hero/1.js/$&#123;英雄ID&#125;.js</code>。</p>
-<p><img src="/2022/07/11/%E9%80%80%E6%BD%AE%E8%AE%A1%E5%88%92%E5%BC%80%E5%8F%91%E5%91%A8%E8%AE%B0-0/退潮计划开发周记-0\重要数据.png" alt="重要数据"></p>
-<p>上图是数据展示的部分，我们对相关分析中得出的重要数据进行标准分的计算并进行表格的展示。</p>
-<p>上面也说了，对局信息是需要登录后携带 cookie 才可以获取到的，之前的 cookie 是写在配置文件里的，现在有了网页之后，总不能每次更新系统都去登录服务器然后修改配置文件然后重启一下服务吧，所以需要做一个半自动获取数据的页面，功能就是手动输入 cookie，然后获取数据。还要有一个分析的按钮，因为数据获取完之后，我并没有让他直接开始分析，因为一些 js 的异步编程问题我不太熟悉，可能前面写出来的代码性能并没有那么好，也主要是因为数据获取是需要跟腾讯的服务器进行网络通讯的，如果在收集之后立马进行分析，可能好几秒过去了后端还没有返回结果，这样我们的网页就会出现信息更新不及时等 bug。</p>
-<h3 id="2-2-前端鉴权"><a href="#2-2-前端鉴权" class="headerlink" title="2.2 前端鉴权"></a>2.2 前端鉴权</h3><p>数据更新页面也不是谁都可以进的，必须只有管理员才可以进，登录的接口我是写在另一个服务中的。这里还需要一个角色管理的功能，我的想法是用一个服务统一管理，需要后面进行更详细的设计。</p>
-<p>但是我们这里需要实现一个比较简单的功能：根据网页是否需要登录判断登陆情况，如果登录了就判断是否是管理员，根据是不是管理员做出不同的反应。前端路由我使用了 React Router v6，这个版本的资料属实很少，只能自己拼拼凑凑，最终我使用了 <code>useRoutes</code> 这个 hook，在 <code>src/app/App.js</code> 中注册路由：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import &#123; useRoutes &#125; from &#x27;react-router-dom&#x27;</span><br><span class="line"></span><br><span class="line">import routes from &#x27;./routes&#x27;</span><br><span class="line"></span><br><span class="line">function App() &#123;</span><br><span class="line">  const element = useRoutes(routes)</span><br><span class="line">  return &lt;&gt;&#123;element&#125;&lt;/&gt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default App</span><br></pre></td></tr></table></figure>
-<p>注意不要忘了加上 <code>&lt;BrouserRouter&gt;</code> 或者 <code>&lt;HashRouter&gt;</code>，我是加在 <code>src/index.js</code> 中的：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import React from &#x27;react&#x27;</span><br><span class="line">import ReactDOM from &#x27;react-dom/client&#x27;</span><br><span class="line">import &#123; BrowserRouter &#125; from &#x27;react-router-dom&#x27;</span><br><span class="line"></span><br><span class="line">import &#x27;./index.css&#x27;</span><br><span class="line">import App from &#x27;./app/App&#x27;</span><br><span class="line">import reportWebVitals from &#x27;./reportWebVitals&#x27;</span><br><span class="line"></span><br><span class="line">const root = ReactDOM.createRoot(document.getElementById(&#x27;root&#x27;))</span><br><span class="line">root.render(</span><br><span class="line">  &lt;React.StrictMode&gt;</span><br><span class="line">    &lt;BrowserRouter&gt;</span><br><span class="line">      &lt;App /&gt;</span><br><span class="line">    &lt;/BrowserRouter&gt;</span><br><span class="line">  &lt;/React.StrictMode&gt;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">reportWebVitals()</span><br></pre></td></tr></table></figure>
-<p>然后就是配置路由，我写在了 <code>src/app/routes/index.js</code> 中：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Navigate, useNavigate &#125; from &#x27;react-router-dom&#x27;</span><br><span class="line"></span><br><span class="line">import AppFrame from &#x27;../../layout/frame/AppFrame&#x27;</span><br><span class="line">import Home from &#x27;../pages/Home&#x27;</span><br><span class="line">import Login from &#x27;../pages/Login&#x27;</span><br><span class="line">import Players from &#x27;../pages/Players&#x27;</span><br><span class="line">import Match from &#x27;../pages/Match&#x27;</span><br><span class="line">import Games from &#x27;../pages/Games&#x27;</span><br><span class="line">import Rate from &#x27;../pages/Rate&#x27;</span><br><span class="line">import Update from &#x27;../pages/Update&#x27;</span><br><span class="line"></span><br><span class="line">import &#123; checkLogin &#125; from &#x27;../../utils&#x27;</span><br><span class="line"></span><br><span class="line">// 用于显示页面标题和鉴权</span><br><span class="line">const TitleAuth = (&#123; children, title, needLogin, roles &#125;) =&gt; &#123;</span><br><span class="line">  const navigate = useNavigate()</span><br><span class="line">  document.title = `$&#123;title&#125; - ⚣ 数据`</span><br><span class="line">  // 如果页面需要登录，则判断登录情况</span><br><span class="line">  if (needLogin === true) &#123;</span><br><span class="line">    const &#123; userInfo, isLogin &#125; = checkLogin()</span><br><span class="line">    // 验证登录和角色权限</span><br><span class="line">    if (isLogin === false) &#123;</span><br><span class="line">      // 如果没有登录，跳转到登录页面</span><br><span class="line">      return &lt;Navigate to=&quot;/login&quot; /&gt;</span><br><span class="line">    &#125; else if (roles !== undefined &amp;&amp; roles.length !== 0) &#123;</span><br><span class="line">      // 如果当前页面有指定权限，则需要验证角色</span><br><span class="line">      let check = false</span><br><span class="line">      for (let role of userInfo.roles) &#123;</span><br><span class="line">        if (roles.includes(role)) &#123;</span><br><span class="line">          check = true</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      if (!check) &#123;</span><br><span class="line">        navigate(-1, &#123; replace: true &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return &lt;div&gt;&#123;children&#125;&lt;/div&gt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const element = [</span><br><span class="line">  &#123;</span><br><span class="line">    path: &#x27;/&#x27;,</span><br><span class="line">    element: &lt;AppFrame /&gt;,</span><br><span class="line">    children: [</span><br><span class="line">      &#123;</span><br><span class="line">        path: &#x27;/home&#x27;,</span><br><span class="line">        element: (</span><br><span class="line">          &lt;TitleAuth title=&quot;首页&quot;&gt;</span><br><span class="line">            &lt;Home /&gt;</span><br><span class="line">          &lt;/TitleAuth&gt;</span><br><span class="line">        )</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        path: &#x27;/players&#x27;,</span><br><span class="line">        element: (</span><br><span class="line">          &lt;TitleAuth title=&quot;重要数据&quot;&gt;</span><br><span class="line">            &lt;Players /&gt;</span><br><span class="line">          &lt;/TitleAuth&gt;</span><br><span class="line">        )</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        path: &#x27;/update&#x27;,</span><br><span class="line">        element: (</span><br><span class="line">          &lt;TitleAuth title=&quot;更新数据&quot; needLogin=&#123;true&#125; roles=&#123;[99]&#125;&gt;</span><br><span class="line">            &lt;Update /&gt;</span><br><span class="line">          &lt;/TitleAuth&gt;</span><br><span class="line">        )</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        path: &#x27;/&#x27;,</span><br><span class="line">        element: &lt;Navigate to=&quot;/home&quot; /&gt;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    path: &#x27;/login&#x27;,</span><br><span class="line">    element: (</span><br><span class="line">      &lt;TitleAuth title=&quot;登录&quot;&gt;</span><br><span class="line">        &lt;Login /&gt;</span><br><span class="line">      &lt;/TitleAuth&gt;</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">export default element</span><br></pre></td></tr></table></figure>
-<p>其中 <code>TitleAuth</code> 这个组件是用来进行页面 title 修改并进行鉴权的，这里也给大家提供一个鉴权的思路。</p>
-<p>当然，导航栏也需要做相应的修改，可以读取路由的配置然后动态生成导航，也可以手动写判断语句生成导航。</p>
-<p>最后做出来的更新页面如下：</p>
-<p><img src="/2022/07/11/%E9%80%80%E6%BD%AE%E8%AE%A1%E5%88%92%E5%BC%80%E5%8F%91%E5%91%A8%E8%AE%B0-0/退潮计划开发周记-0\更新数据.png" alt="更新数据"></p>
-<p><img src="/2022/07/11/%E9%80%80%E6%BD%AE%E8%AE%A1%E5%88%92%E5%BC%80%E5%8F%91%E5%91%A8%E8%AE%B0-0/退潮计划开发周记-0\数据分析.png" alt="数据分析"></p>
-<h2 id="3-后续开发计划"><a href="#3-后续开发计划" class="headerlink" title="3 后续开发计划"></a>3 后续开发计划</h2><ul>
-<li>用户登录、权限和角色设计</li>
-<li>数据更新更方便的方案（可能从 cookie 的获取入手）</li>
-<li>对选手进行组合，查看胜率，找出最佳/拉组合（匹配分析）</li>
-<li>根据匹配分析的结果进行更合理的分队</li>
-<li>复盘功能（评论和小作文）</li>
-</ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/07/11/%E9%80%80%E6%BD%AE%E8%AE%A1%E5%88%92%E5%BC%80%E5%8F%91%E5%91%A8%E8%AE%B0-0/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
