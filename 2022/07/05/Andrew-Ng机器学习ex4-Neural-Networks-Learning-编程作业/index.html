@@ -28,7 +28,7 @@
 <meta property="og:description" content="这周的作业是在上周的基础上进行了难度的提升，需要我们自己计算参数并加上反向传播（Backpropagation），完整代码在 这里。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-07-05T03:20:52.000Z">
-<meta property="article:modified_time" content="2022-07-05T03:58:16.502Z">
+<meta property="article:modified_time" content="2022-07-05T04:04:05.676Z">
 <meta property="article:author" content="Jortana">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="Machine Learning">
@@ -193,7 +193,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-07-05 11:20:52 / 修改时间：11:58:16" itemprop="dateCreated datePublished" datetime="2022-07-05T11:20:52+08:00">2022-07-05</time>
+              <time title="创建时间：2022-07-05 11:20:52 / 修改时间：12:04:05" itemprop="dateCreated datePublished" datetime="2022-07-05T11:20:52+08:00">2022-07-05</time>
             </span>
 
           
@@ -248,10 +248,12 @@
 </ol>
 <p>其中前 4 步要在循环中完成，第 5 步在循环结束后完成（实际上在循环中也完成了第 5 步的一半）。</p>
 <p>在 <code>nnCostFunction.m</code> 中前面完成的部分之后输入：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">% Backpropagation</span><br><span class="line">for t = 1:m,</span><br><span class="line">  % Step 1</span><br><span class="line">  a1 = X(t, :)&#x27;;</span><br><span class="line">  z2 = Theta1 * a1;</span><br><span class="line">  a2 = [1; sigmoid(z2)];</span><br><span class="line">  z3 = Theta2 * a2;</span><br><span class="line">  a3 = sigmoid(z3);</span><br><span class="line"></span><br><span class="line">  % Step 2</span><br><span class="line">  delta3 = (a3 - yk(t, :)&#x27;);</span><br><span class="line"></span><br><span class="line">  % Step 3</span><br><span class="line">  delta2 = Theta2(:, 2:end)&#x27; * delta3 .* sigmoidGradient(z2);</span><br><span class="line"></span><br><span class="line">  % Step 4</span><br><span class="line">  Theta1_grad = Theta1_grad + delta2 * a1&#x27;;</span><br><span class="line">  Theta2_grad = Theta2_grad + delta3 * a2&#x27;;</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">% Step 5</span><br><span class="line">Theta1(:, 1) = 0;</span><br><span class="line">Theta2(:, 1) = 0;</span><br><span class="line">Theta1_grad = Theta1_grad ./ m + lambda * Theta1 / m;</span><br><span class="line">Theta2_grad = Theta2_grad ./ m + lambda * Theta2 / m;</span><br></pre></td></tr></table></figure>
-<p>本次作业到此顺利完成。</p>
-<p>作业的后面还有一些也比较重要的工作，不过不涉及代码。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">% Backpropagation</span><br><span class="line">for t = 1:m,</span><br><span class="line">  % Step 1</span><br><span class="line">  a1 = X(t, :)&#x27;;</span><br><span class="line">  z2 = Theta1 * a1;</span><br><span class="line">  a2 = [1; sigmoid(z2)];</span><br><span class="line">  z3 = Theta2 * a2;</span><br><span class="line">  a3 = sigmoid(z3);</span><br><span class="line"></span><br><span class="line">  % Step 2</span><br><span class="line">  delta3 = (a3 - yk(t, :)&#x27;);</span><br><span class="line"></span><br><span class="line">  % Step 3</span><br><span class="line">  delta2 = Theta2(:, 2:end)&#x27; * delta3 .* sigmoidGradient(z2);</span><br><span class="line"></span><br><span class="line">  % Step 4</span><br><span class="line">  Theta1_grad = Theta1_grad + delta2 * a1&#x27;;</span><br><span class="line">  Theta2_grad = Theta2_grad + delta3 * a2&#x27;;</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">% Step 5</span><br><span class="line">Theta1(:, 1) = 0;</span><br><span class="line">Theta2(:, 1) = 0;</span><br><span class="line">Theta1_grad = Theta1_grad ./ m</span><br><span class="line">Theta2_grad = Theta2_grad ./ m</span><br></pre></td></tr></table></figure>
 <h3 id="2-4-梯度检验-Gradient-checking"><a href="#2-4-梯度检验-Gradient-checking" class="headerlink" title="2.4 梯度检验 Gradient checking"></a>2.4 梯度检验 Gradient checking</h3><p>这里作业中是搭建了一个小型的神经网络，用的数据量很小，这样也不会算很久，这是一种很方便的策略，因为梯度检验是比较耗费时间和性能的（是真的一个一个再算）。代码也在作业中给出了，并不难，如果前面的程序没有问题，可以看到我们得到的误差是远小于他给出的 1e-9 的误差值的，我自己做出来结果是在 1e-11 这个数量级水平的。</p>
+<h3 id="2-5-正则化神经网络"><a href="#2-5-正则化神经网络" class="headerlink" title="2.5 正则化神经网络"></a>2.5 正则化神经网络</h3><p>同样地，我们在计算 <code>Theta1</code> 和 <code>Theta2</code> 时，也需要对它们进行正则化，只需要修改上面我们完成的代码的最后两行，修改为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Theta1_grad = Theta1_grad ./ m + lambda * Theta1 / m;</span><br><span class="line">Theta2_grad = Theta2_grad ./ m + lambda * Theta2 / m;</span><br></pre></td></tr></table></figure>
+<h3 id="2-6-Learning-parameters-using-fmincg"><a href="#2-6-Learning-parameters-using-fmincg" class="headerlink" title="2.6 Learning parameters using fmincg"></a>2.6 Learning parameters using fmincg</h3><p>进行到上一步之后，作业提供的代码就会帮我们使用 <code>fmincg</code> 进行计算，本次作业到此顺利完成。</p>
+<p>作业的后面还有一些也比较重要的工作，不过不涉及代码，大家可以自行调节一下各个参数，根据结果可以对每个参数有一个感性的认识。</p>
 
     </div>
 
@@ -281,7 +283,10 @@
     <a href="/2022/06/28/Andrew-Ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0ex3-Multi-class-Classication-and-Neural-Networks-%E7%BC%96%E7%A8%8B%E4%BD%9C%E4%B8%9A/" rel="prev" title="Andrew Ng机器学习ex3(Multi-class Classication and Neural Networks)编程作业">
       <i class="fa fa-chevron-left"></i> Andrew Ng机器学习ex3(Multi-class Classication and Neural Networks)编程作业
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2022/07/11/%E9%80%80%E6%BD%AE%E8%AE%A1%E5%88%92%E5%BC%80%E5%8F%91%E5%91%A8%E8%AE%B0-0/" rel="next" title="退潮计划开发周记 0">
+      退潮计划开发周记 0 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -341,7 +346,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-Neural-Networks"><span class="nav-number">1.</span> <span class="nav-text">1 神经网络 Neural Networks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD%E5%92%8C%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0-Feedforward-and-cost-function"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 前向传播和代价函数 Feedforward and cost function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0-Regularized-cost-function"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 正则化代价函数  Regularized cost function</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD-Backpropagation"><span class="nav-number">2.</span> <span class="nav-text">2 反向传播 Backpropagation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-S-%E5%87%BD%E6%95%B0%E6%B1%82%E5%AF%BC-Sigmoid-gradient"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 S 函数求导 Sigmoid gradient</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E9%9A%8F%E6%9C%BA%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8F%82%E6%95%B0-Random-initialization"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 随机初始化参数 Random initialization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD-Backpropagation"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 反向传播 Backpropagation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-%E6%A2%AF%E5%BA%A6%E6%A3%80%E9%AA%8C-Gradient-checking"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 梯度检验 Gradient checking</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-Neural-Networks"><span class="nav-number">1.</span> <span class="nav-text">1 神经网络 Neural Networks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD%E5%92%8C%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0-Feedforward-and-cost-function"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 前向传播和代价函数 Feedforward and cost function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E6%AD%A3%E5%88%99%E5%8C%96%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0-Regularized-cost-function"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 正则化代价函数  Regularized cost function</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD-Backpropagation"><span class="nav-number">2.</span> <span class="nav-text">2 反向传播 Backpropagation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-S-%E5%87%BD%E6%95%B0%E6%B1%82%E5%AF%BC-Sigmoid-gradient"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 S 函数求导 Sigmoid gradient</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E9%9A%8F%E6%9C%BA%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8F%82%E6%95%B0-Random-initialization"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 随机初始化参数 Random initialization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD-Backpropagation"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 反向传播 Backpropagation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-%E6%A2%AF%E5%BA%A6%E6%A3%80%E9%AA%8C-Gradient-checking"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 梯度检验 Gradient checking</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-%E6%AD%A3%E5%88%99%E5%8C%96%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">2.5.</span> <span class="nav-text">2.5 正则化神经网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-Learning-parameters-using-fmincg"><span class="nav-number">2.6.</span> <span class="nav-text">2.6 Learning parameters using fmincg</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -355,20 +360,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">32</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
